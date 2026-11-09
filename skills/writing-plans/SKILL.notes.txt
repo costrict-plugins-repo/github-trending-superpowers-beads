@@ -1,0 +1,257 @@
+Glosses for writing-plans/SKILL.md. NOT loaded as context — the rule text carries
+behavior only; dates, incidents and displaced narratives live here.
+
+### (2026-08-19) Decision Beads gains a triage step; two incident parentheticals displaced here.
+RULE CHANGE: forks are parked ONLY as decision beads with dep-links, and are triaged under
+  precedence (ruling > code > spec > plan-time text) BEFORE being parked. Re-reading an
+  inherited fork list re-runs the triage. Also: a gate's factual premises must not contradict
+  the spec text they derive from or a standing ruling, not merely "evidence already gathered".
+
+INCIDENT (why the triage step exists): solo-eb4.6.104 carried a prior session's
+  "planning-round agenda" of 12 parked design forks, closing with "the epic is not dispatchable
+  until every line has a ruling". The epic was dropped from an unattended overnight run on that
+  basis. A later session inherited the framing and walked the forks to the owner one at a time.
+  Owner: "why the fuck are you being stuck with fucking gates which were written while writing
+  plans? isn't the brainstormed plan and decisions made by me is the first priority?" On audit
+  exactly ONE was genuinely a decision (which binding an endpoint resolves to when a chat holds
+  several counterparties — customer-visible, rulable either way). Eleven were plan defects:
+  a gate that never caught up with the rationale three lines above it in the same spec section
+  (escalated twice, under two agenda numbers), a bead contradicting itself GET-vs-POST, gate
+  vocabulary that never matched the shipped function, a Files-list omission, one answered
+  verbatim by a doc comment in the source file, two sequencing errors, two security defaults
+  with one safe answer, an unverified third-party API premise wanting an experiment, and four
+  gates that merely lacked an owner bead. An agenda line has no owner and no dep-link, so it
+  gates nothing mechanically while reading as a blocker — hence "decision bead or nothing".
+
+DISPLACED FROM THE RULE TEXT (behavior kept, narrative moved here per the corpus rule):
+  - Gate premises, observed 2026-07-26: a gate required ">= 3 distinct offsets" to mean two DST
+    transitions — a spring/fall pair yields 2 — and placed a zone in the DST set the same
+    session had already measured as a one-off transition.
+  - No Placeholders / the fork test: this replaced the 1.4.7 blanket relaxation, whose trial
+    metrics moved adversely — two implementers resolved one unpinned gap in opposite
+    directions, one of them a committed privilege escalation.
+
+NOT CHANGED, deliberately: "A plan is never written over an unresolved design fork" and
+  "One acceptance = ONE decision; bundled forks need separate rulings" both stand. Triage
+  happens before bead creation, not instead of it, and never authorises self-ruling on a
+  fork that survives it.
+
+CALL-SURFACE SEALING (1.4.31), observed 2026-08-24 in the solo/msklad-bot corpus:
+  Five commits, all landing as fix or dedup rather than planned work, share one shape — a task
+  needs behaviour that exists, the symbol is private, the Files list excludes its home, and the
+  executor's only legal moves are retype or BLOCKED. 0bdc784 retyped entitlement.ts's private
+  floorRow/laterOf/GRACE_DAYS math into routes/billing.ts; drift was then demonstrated by
+  mutating the original and watching the copy stay stale, which would have shown a customer a
+  silently wrong lapsed-delivery count. 97ee82c byte-copied alertedRecently out of
+  operator-alerts.ts. 18d1654, 317f455 and d8dd27f are the same shape in earlier weeks. The
+  third case, solo-eb4.6.82.2, read ~115K tokens of context before correctly reporting BLOCKED
+  on seven private symbols in routes/billing.ts, one of them a charge lock whose absence would
+  let two paths double-charge a stored card.
+  Two models (Sonnet twice, Opus once) hit the wall under one corpus, which argued text over
+  executor. Both of today's copies WERE caught by review — the detection side works; it is a
+  round late, not blind. The edit's job is to make that round unnecessary, never to relax the
+  STOP law that produced the correct BLOCKED.
+
+NOT CHANGED, deliberately: the five sites f229b88 swept for the STOP-on-unlisted-files law —
+  the writing-plans task template's gate item and drift detector, the implementer prompt,
+  hybrid-execution's ballooning rule, and the reviewer prompt's matching check. This edit
+  changes no STOP semantics: the export authorisation arrives through the Files list, which
+  every executor-facing site already honours unchanged. The Self-Review bullet's umbrella
+  ("re-run each rule section above") covers the new clause without restating it, and the file's
+  own doctrine is that duplicated restatements are debt.
+
+BOUNDED ON PURPOSE, because the rejected first draft was one-sided: the file-grant is capped at
+  the visibility change ("never the symbol's body or its neighbours"); Files-list inflation is
+  held down by the file-step tie and by anchoring the obligation to symbols the task body
+  already cites; the stall the phrase "not ready to dispatch" would have manufactured is routed
+  to a decision bead instead. Residual, stated so nobody later "fixes" it by loosening the
+  executor side: reuse the plan never named still costs a BLOCKED round, and that is correct.
+
+### (2026-08-26) The skill is rewritten thin: unverified pins are forbidden, the citation lint replaces Self-Review, preflight stamps die.
+RULE CHANGE: a task body carries intent, Files, gate, and scope fences; every verbatim fact
+  (path, symbol, quoted string, locale key, commit claim) must pass scripts/lint-citations.mjs
+  before bd create or must not be written — the executor resolves specifics against the live
+  tree and logs deviations. Rendered-page facts are unplannable: visual gates name what to
+  verify in a browser, never the DOM/CSS the planner imagines. Self-Review is deleted (author-
+  blind; its catch-class is now the lint plus pre-flight's semantic residue). preflight:
+  required/light stamps are deleted (sdd pre-flight runs one reader per epic, semantic classes
+  only). The plan-ready marker gains its real consumer: sdd's epic gate now checks it.
+  Word delta: SKILL.md 4559 -> 1990; plan-document-reviewer-prompt.md (287w, orphaned — zero
+  live references corpus-wide) deleted.
+
+INCIDENT (session dae47986, 2026-08-26, solo repo): the 4559-word doctrine planned epic
+  solo-eb4.6.118 — eleven beads, of which pre-flight invalidated NINE. Defect census: eleven of
+  ~25 findings were fabricated verbatim facts a one-command check refutes (a string "restored"
+  from a commit that never held it; a file cited 7x that does not exist; gate items quoting UI
+  strings absent from the locale catalogue; a prop absent from the component's interface; a CSS
+  token that exists nowhere). On sibling task solo-eb4.6.111.18 the pinning doctrine itself
+  injected a security defect: the plan pinned `paymentId: number` verbatim over a column three
+  docs call free text, named no adapter, and the executor obeyed the pin over the docstring
+  beside it — Number("1e3") redirecting a tenant to another tenant's fiscal receipt. Layout
+  beads asserted DOM facts for pages never rendered (a pane React never mounts "always shown"
+  via display:none). Owner ruling: detection was never the problem — generation is; cutting
+  checks ships the same defects later. Verify Before You Cite failed structurally: it was
+  enforced by the author's own re-read ("I already checked that"), so the check left the author
+  for a script. The eleven mechanical findings are the lint's test corpus; fixtures reproducing
+  the missing-file, wrong-string, fabricated-commit and stale-line-pin classes fail it, and the
+  truthful body passes.
+
+NOT CHANGED, deliberately: Drift Detectors and the Attention Map (scope fences, not code
+  claims — consumed by implementer-prompt, codex dispatch, hybrid-parallel eligibility);
+  Execution Annotation's rubric with tier-orthogonal-to-scheduling and never-name-a-model
+  (guarded by tests/skill-evals/writing-plans); the TDD skeleton; Decision Beads triage; the
+  gate doctrine's three load-bearing ideas (observable outcome, failure-regime fixture,
+  preservation item) — last night's review used all three — compressed from four paragraphs
+  to one; the dispatched-planner venue and receipt. The STOP-on-unlisted-files law and the
+  export-is-prefactoring rule survive: D1 was exactly an executor duplicating an exported
+  reader, and the rewrite keeps reuse-is-cited-never-reimplemented as a body-level law.
+
+2026-08-31 — context: fork.
+  The skill now runs as a forked planning agent (frontmatter `context: fork`). Cause: it was
+  invoked twice — once in the coordinator (loading the whole procedure into the very session the
+  Venue rule exists to protect) and once in the dispatched planner — because "dispatch a planner,
+  never the coordinator's session" lived inside the body and could only be read by invoking the
+  skill. `context: fork` makes the harness fork on invocation: the body becomes the subagent's
+  prompt, never loads into the coordinator, and covers every entry point (brainstorming handoff
+  and a fresh "go with writing-plans") with no upstream routing rule. The Venue line was rewritten
+  from "a dispatched planning agent" to "you ARE the forked agent" so the planner does not
+  re-dispatch; Input now names `$ARGUMENTS` as the root bead id, since a fork carries no
+  conversation history. Verified no manual planner dispatch existed elsewhere (brainstorming only
+  "invokes", which now auto-forks) — nothing to remove.
+
+### (2026-09-04) Amend mode restores planner-only decomposition after hand-filed plans.
+RULE CHANGE: writing-plans accepts a root epic plus named child ids, plans those children in
+  place, and splits an oversized child only into sibling tasks under the epic. The root's
+  Attention Map and `plan-ready` marker are refreshed before the forked planner returns its
+  receipt.
+
+INCIDENT: Release 1 and Release 2 in the beads tracker executed hand-filed plans instead of
+  planner products. The second-FAIL split clause also created children under a task, breaking
+  the flat planner-only decomposition rule. Amend mode gives both paths a planner-owned remedy.
+
+### (2026-09-04) The exploration map: symbol rows written once at plan time, freshness computed at dispatch.
+RULE CHANGE: a new Checklist step (5, Exploration Map) writes docs/beads/<epic-id>.map.md in the
+  target repo — one row per cited or created symbol, the Hash cell holding exactly one of two
+  values (the 12-hex hash scripts/structural-index prints at the planning commit, or the literal
+  `new` for a symbol the plan creates), seam rows for consumer interfaces, one pointer line on
+  the epic body, committed with the plan. Nobody edits hashes and no bead is written to maintain
+  the map; freshness is scripts/map-check's output at dispatch (owner rulings R-B and R-C on
+  superpowers-35v: symbol-keyed derived data, findings never used for map changes). Amend mode
+  appends the named child's rows to the epic's map file.
+
+INCIDENT (the mining evidence behind the map): the codex mining of 64 zanjir sessions and 545
+  subagents counted one fixture file read 33 times by 8 agents and one bead body read 29 times by
+  14 agents — first-encounter exploration re-paid by every executor; a plan-time symbol table with
+  computed freshness removes the re-read.
+
+### (2026-09-04) The task template's two blocks become one-turn batches: discovery before the first edit, verification at the gate.
+RULE CHANGE: the Task Structure template's "**Before you start — ONE turn (discovery batch):**"
+  block lists the span read of every fresh map entry, STALE entries in full at their current span,
+  and the index queries the task names with their expected counts — all issued in a single turn,
+  no other file opened before the first edit, a file the task creates or restructures read whole
+  and stated in the report. The "**Acceptance Gate — ONE turn, DONE when ALL pass:**" label gains
+  a lead line: all gate commands run together and report together — the verification batch.
+  Writing the Gate gains one sentence: the planner names the index queries and expected counts
+  the task's discovery batch runs. CONTEXT.md's existing "discovery batch" and "verification
+  batch" glossary lines already carried this wording; no term was coined.
+
+BASELINE (the mining this batching answers): implementer median 77 tool calls, 682M of 2.09B
+  implementer + reviewer tokens spent before the first edit — exploration and gate checks re-paid
+  turn after turn, 98% of input a cache re-read of an unchanged prefix. One turn per batch caps
+  the turn count that prefix tax is paid on.
+
+NOT CHANGED, deliberately: the template's citations block and Drift Detectors part; the Amend
+  Mode section, the Exploration Map section, and the "## Decision Beads", "## Multi-Phase
+  Epics", "## Handoff" headings — byte-identical across this edit. The charters and dispatch
+  prompts belong to sibling tasks (implementer charter, reviewer, pre-flight, codex protocol).
+
+### (2026-09-05) Decision Beads: a fork is one typed, bylined command, and the planner never answers it.
+RULE CHANGE: the fork create is one command — bd create "Decide: <fork>" --parent <root>
+  --question "<fork>" --topic <slug> — so bead and question land in one transaction and the
+  attached question holds the bead out of bd ready; the Decide bead is then dep-linked in front
+  of every task the outcome blocks. The forked planner exports BD_ACTOR=planner before its first
+  bd write and holds it for the whole run (R-A/R-37), so bd bylines its questions and findings
+  planner and refuses its rulings. Topic slugs are picked, not invented: reuse a slug bd topics
+  prints, mint only when none fits (R-D/R-40 restricts minting to owner, coordinator, planner).
+  The two remaining paths are stated once each — a fork on an already-created task is
+  bd question add <task-id> "<fork>" --topic <slug>, and the answer is the coordinator's or the
+  owner's bd ruling add <decide-id> "<text>" --answers <Q-id> --close.
+
+INCIDENT: the section's own command had stopped working. Verified 2026-09-05 on a scratch
+  database: bd create "Decide: …" --parent <root> exits 1 with 'a "Decide:" bead needs the
+  question attached', and --question without --topic exits 1 with '--question requires --topic'
+  — so the two-step the section prescribed (create, then bd question add) could not even reach
+  its second command. In the same run, with BD_ACTOR unset a planner's questions carry the
+  owner's byline; under BD_ACTOR=planner they carry planner:<user> and bd ruling add is refused
+  ("executors cannot file rulings"), while bd create, bd dep add, bd label add and
+  bd update --body-file all succeed — every verb the skill tells the planner to run.
+
+DISPLACED TO MAKE ROOM (the file sits at its 2776-word budget, and only this section was open
+  to edit, so the new rules were paid for inside it):
+  - "the block is enforced by the tracker, not by a reader noticing" — the rationale for the
+    bd-ready consequence; the consequence itself is kept ("held out of bd ready by its question").
+  - "Only survivors return" as its own clause; triage already says what does not survive, and
+    the Venue/NEEDS_RULING paragraph carries the partial-return rule.
+  - The fork examples shortened: "two viable architectures … a shape only a prototype can settle"
+    → "rival architectures … a prototype-only shape"; "stops decomposition of that region" →
+    "stop decomposition".
+  - The wayfinder line lost "route to"; the arrow already reads as the route.
+
+NOT CHANGED, deliberately: "A plan is never written over an unresolved design fork" stands
+  verbatim as the section's first clause; the triage rules (precedence collision → plan defect,
+  repo-answered and one-safe-answer pruned, unverified claims researched) keep all three clauses;
+  each surviving fork is still ruled separately; the wayfinder route survives. F-40's requirement
+  is kept as the dep-link instruction with its command, so the Decide bead's rdeps is never empty
+  and the execution skills' epic gate has something to read. Frontmatter and every other section
+  are byte-identical — the model: line belongs to a sibling task.
+
+  REVIEW FIX (same day): the quoted create gained `-p 1`, which spec Component A carries and the
+  first draft dropped — measured on a scratch database, the flagless command creates the Decide
+  bead at priority 2 while every task the Input line creates is priority 1, so a fork sorted
+  below the tasks it blocks. The two words were paid for inside the section: "one-safe-answer
+  defaults are pruned" lost "are" (the clause after it already elides it), and "mint only when
+  none fits" became "mint if none fits" ("if none fits" already carries the limit).
+
+  FIX ROUND 2 (same day, from the coordinator's live run of tests/skill-evals/writing-plans/
+  test-typed-fork-filing.md at c280332): the scenario FAILED on its dep-link criterion. The
+  agent read "stops decomposition of that region" together with No Placeholders and left the
+  blocked tasks unwritten — "they get no bead yet; there is nothing to bd dep add against" —
+  which is exactly the orphan Decide bead the execution skills' epic gate stops on. RULE
+  CHANGE: a fork stops the answer, not the beads. Every task the fork blocks is still created,
+  its body naming the decision as an input and picking no side; the dep-link, not a missing
+  bead, is what blocks it. That is already licensed by "What a Task Body May Claim" ("A decision
+  settled upstream … appears in this body — cited by bead and section, not reproduced"), so no
+  placeholder is involved. Precedent on the tracker: superpowers-bqp.6 and .8 are full task
+  beads dep-linked to decision beads .13 and .12, whose rdeps are non-empty.
+  DISPLACED TO PAY FOR IT, inside the same section and the same 2776-word budget: the genuine-
+  fork examples ("rival architectures, an unvalidated dependency, a prototype-only shape") and
+  the clause "stop decomposition" itself, which this fix supersedes — triage still defines a
+  fork negatively, by what it prunes. Also trimmed: "A fork on an already-created task" -> "On
+  an already-created task", "The coordinator or owner" -> "Coordinator or owner", "never
+  picking a side" -> "never picking sides".
+
+### (2026-09-06) The Input line delivers the argument; it no longer describes it.
+RULE CHANGE: both fork skills open with "**Your input for this invocation:**", the bare
+  $ARGUMENTS on its own line, then an imperative ("Plan it now." / "Run that job now.").
+  The old line — "`$ARGUMENTS` has two shapes." / "`$ARGUMENTS` names one job and its scope."
+  — read, after substitution, as a definition of the argument format rather than as the
+  request itself, and the backticks made the substituted text look like a quoted example.
+
+INCIDENT: two tracker-mining forks in zanjir session 7bd0f7bb (2026-09-05) received correctly
+  substituted arguments and both reported having none. The first answered "No job/scope
+  argument was included in this invocation", then guessed `audit zanjir-4dly.3` as the likely
+  target — the exact string its own prompt held. The second, given a spelled-out job and scope,
+  answered "No task or question was included in this session's input". A fork has no
+  conversation history, so the body is its whole prompt: a body written only as procedure
+  reads as documentation, and the fork finds no request in it.
+
+INCIDENT (Grain clause, 2026-09-12, solo session 8a9f872c, superpowers-awg): the owner stopped an
+  18-task phase because each task spent most of its time on tests and gates. Diagnosis: "Writing
+  the Gate" says under-coverage must fail ("every variant has its own assertion") but never says
+  what a variant is, and gate-lint (2026-08-16) leaves only a command or an assertion as legal
+  shapes — so the planner wrote one assertion per datum (sixteen tables, sixteen items; a literal
+  migration roster seven test files had to extend) and a re-cut concatenated thirteen tasks'
+  assertion lists into 17-19 items per task. Lines added that day ran 1.96 test : 1 logic against
+  0.61 in early August; two of the day's suite reruns were test-only failures. writing-good-tests.md
+  (table-driven shape, change-detector ban) was referenced only from the TDD skill the executor
+  reads, never from this planner. Codex, sonnet and GLM showed the same shape under the same text.

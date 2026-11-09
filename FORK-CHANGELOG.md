@@ -1,0 +1,1747 @@
+# Fork Changelog
+
+Release history of the superpowers-beads fork. Upstream's own history stays in
+`CHANGELOG.md` / `RELEASE-NOTES.md` (vendored, never edited here — their top
+version marks the fork's upstream sync point).
+
+Every entry states the net `skills/` word delta. Additions displace: a release
+that grows the corpus names what it failed to remove.
+
+## [1.4.81] - 2026-11-09
+
+Net `skills/` word delta: **−9414** by `wc -w` (59786 → 50372); the agent charters shrink too, `agents/` 5419 → 4459
+(−960). Nothing added beyond the shared Epic gate section, which replaces three copies.
+
+- Skill-noise review: 382 of 401 owner-approved edits cut ids, dates, incident narrative, asides, restated rules
+  and over-long examples across 45 skill and agent files. The 19 rejected items stay as they were.
+- The epic gate and the needs-plan → amend-mode rule live once, in `skills/shared/plan-lane.md` (Epic gate);
+  hybrid-execution, opencode-execution and subagent-driven-development cite it.
+- systematic-debugging states its failed-fix bound as 2 throughout.
+- Upstream discipline cuts land in test-driven-development, systematic-debugging, verification-before-completion and
+  using-git-worktrees; verification-before-completion keeps the one-line regression recipe. Pressure runs (the
+  sunk-cost TDD scenario, the production-down debugging scenario) chose the compliant option before and after the cuts.
+- The mattpocock/skills MIT attributions moved from the skill bodies into `NOTICE`.
+
+## [1.4.80] - 2026-11-09
+
+Net `skills/` word delta: **+74** by `wc -w` (super-orchestrator 1301 → 1347, shared/plan-lane 740 → 768); the
+lane-orchestrator agent charter grows too (outside `skills/`). Nothing displaced: the owner asked for the content
+review that may shrink these files as the next step.
+
+- A lane runs the owner's execution mode. The owner's serial-or-parallel choice is recorded on the epic as
+  `exec-mode:serial` or `exec-mode:hybrid-parallel`; the super orchestrator asks once when it is missing and names
+  it in every lane dispatch; the lane orchestrator runs up to 3 eligible tasks at once under hybrid-parallel, per
+  hybrid-execution's existing procedure, and one at a time otherwise.
+
+## [1.4.79] - 2026-11-08
+
+Net `skills/` word delta: **+23** by `wc -w` (super-orchestrator 1278 → 1301). Nothing displaced: the clause it
+replaces ("otherwise the task goes through a lane") carried the defect itself and is gone; no other line states the
+same routing. Known overage: super-orchestrator stands at 1301 against its stated 951.
+
+Effect: a queue of one — a single task, runtime operation or check — goes to one direct agent under the coordinator's
+claim, never a lane. Cause: on 2026-11-08 the coordinator dispatched full lane-orchestrators for a one-row dev delete
+(.252.15) and a read-only VM check (.167-b), following line 39's "otherwise the task goes through a lane"; the owner
+asked "why the fuck are you running a lane for a single task?".
+
+## [1.4.78] - 2026-11-08
+
+Net `skills/` word delta: **+93** by `wc -w` (super-orchestrator 1211 → 1278, subagent-driven-development/reviewer-prompt
+1420 → 1446). Displaced in super-orchestrator: the "~250K tokens, replace it" bullet (it collided with
+orchestration.md's 400K-peak / ~250-turn boundary, which rules) and the "feedback item is a class" paragraph (a
+duplicate of CLAUDE.md Diagnosis). Known overage: super-orchestrator stands at 1278 against its stated 951.
+
+Effect: an owner question carries the read that grounds it. The coordinator's charter now names a bounded read that
+grounds an owner question or tests an agent's proposal as its own call, never mining — the sentence that was missing
+when CLAUDE.md's "read the sources first" (2026-10-31) lost to this skill's "`grep` in your own turn" red flag. A
+coordinator question carries `Evidence: <path>:<line>`; the rules-repo hook `question-evidence-guard` (76f3b3e)
+refuses `bd question add` without one. A reviewer's proposal names the user path that reaches it or carries
+`reachability unverified`, and an unverified one becomes at most a finding. The "one decision first" slot in an
+owner message may stay empty.
+
+Incident: 2026-11-08, Q-1599 filed from a wave reviewer's proposal with no code read; the premise could not happen.
+Measured since 2026-10-25: coordinators read code before 54 % of their 28 question filings, subagents 94 % of 347;
+nine same-day wrong-premise withdrawals. Diagnosis: solo `docs/beads/workflow-diagnosis-2026-11-08-ungrounded-owner-
+question.md`. Test: the same reviewer-proposal scenario run by fresh Sonnet agents under the old and the new excerpt
+both read the code and filed nothing — a fresh context with the files named does not reproduce the failure, so the
+measured transcripts stand as the baseline and the hook carries the enforcement; the new reviewer format produced
+the path plus `reachability unverified` on first run.
+
+## [1.4.77] - 2026-11-07
+
+Net `skills/` word delta: **+206** by `wc -w` (super-orchestrator 1102 → 1211, writing-plans 3039 → 3083,
+subagent-driven-development 3904 → 3943, requesting-code-review 513 → 527); `agents/lane-orchestrator.md`
+1636 → 1646. Nothing displaced. Known overage: super-orchestrator stands at 1211 words against its stated 951
+(1102 before this release, so 151 of the gap predates it); requesting-code-review, subagent-driven-development
+and writing-plans were already over their stated budgets by the same count and grow further. A displacement
+for super-orchestrator that leaves this release's lines untouched is proposed, not applied.
+
+Effect: the owner's "a new pattern needs explicit approval" now holds in every seat, not only in the
+coordinator's own rules. The planner can no longer prune a login, role, store, vendor, process or mechanism the
+tree does not have as "forced by one correct design": it files a decision bead, never a pin or a labelled
+proposal, and its receipt lists every *Proposal:* its bodies carry. A lane authoring a body files a question for
+a forced proposal that adds a new pattern. In review (requesting-code-review, subagent-driven-development), an
+unapproved new pattern is one owner question that never flips the verdict and holds the branch's merge until the
+owner answers. The super orchestrator carries an owner answer onward as the owner's words or the exact approved
+text, labels a consequence it derives as its own and asks it before it binds, counts a new pattern among the
+owner's decisions, reads a planner receipt's Proposals before relaying it (owning any "no owner question needed"),
+and holds a lane whose review names an unapproved new pattern while other lanes move. Cause: solo, 2026-11-06/07 —
+a planner pruned a new database login as forced, a lane built it, review passed it, and the coordinator relayed
+"the main login reads no company schema" as the owner's words; wording approved by the owner line by line
+(solo-97ybl, Q-1579). Evals: five scenarios under `tests/skill-evals/`, GREEN 5/5 PASS; baseline FAIL for the lane
+charter and requesting-code-review. Version fields re-synced: 1.4.76 had bumped three of the five files.
+
+## [1.4.76] - 2026-11-02
+
+Net `skills/` word delta: **+71** by `wc -w` (super-orchestrator 1059 → 1102, writing-plans 3011 → 3039), derived
+from `git diff 572209b a74672d`. Displaced: no record. Changes (07a2984, 6cd7b74, 504dbb2): a decision binding
+future work becomes an AGENTS.md rule only when the owner says record it — an owner ask, or approval of the exact
+text shown; approving the decision is not that. A Decide bead closes by commit only when the owner recorded a
+rule; otherwise it closes moot with the answer as the note, and the answer is written into every dependent task's
+body because a dependent never sees the note. The super orchestrator's moot close carries an owner answer that
+is not recorded as a rule. Cause: msklad-bot session 4c2f75f2 (2026-11-01) committed six AGENTS.md rules after
+the owner approved only the design choices behind them; owner approved each change. The release commit
+(a74672d) bumped `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json` and `.claude-plugin/marketplace.json`
+but left `package.json` and `gemini-extension.json` at 1.4.75 (fixed in 1.4.77). Eval runs: no record.
+
+## [1.4.75] - 2026-11-01
+
+Net `skills/` word delta: **+13** (super-orchestrator 997 → 1010). The folder-is-the-reach paragraph no longer sends a
+rule shared by sibling folders to their parent: a rule lives in the deepest folder that contains every file able to
+break it, a folder holds a rule about its children only when it is true of all of them, and a rule two modules share
+belongs to the one whose code decides it. The old sentence contradicted the msklad-biklod placement ruling and produced
+a parent-folder proposal in the files pilot review. Nothing displaced; the 13 words are owed.
+
+## [1.4.74] - 2026-11-01
+
+Net `skills/` word delta: **−9** (brainstorming 2105 → 2096). Added: checklist step 9 "Propose lasting rules" and a
+Lasting Rules Gate between spec approval and the planner dispatch — the model proposes the spec's decisions that must
+outlive the feature (four-question test), each as a proposed AGENTS.md line with its folder and verified facts; the
+owner approves, edits or drops each, and nothing is written into an AGENTS.md before that. The project-rules line now
+names each touched folder's AGENTS.md before CLAUDE.md (it named CLAUDE.md and .claude/rules/ only). Displaced (186
+words): the intro sentence, a duplicated context bullet, the question bullets merged, the prune list pointing to step 4,
+the Key Principles section (YAGNI kept under Presenting the design), and four shortened or duplicated lines. Cause: the
+msklad-biklod rules migration pilot drafted 33 rule lines of which 16 were one-time approvals or history; the owner
+placed the rule-vs-detail test in brainstorming, not writing-plans, because planning runs autonomously; owner approved
+2026-11-01.
+
+## [1.4.73] - 2026-10-31
+
+Net `skills/` word delta: **+76** (handoff +76). Nothing displaced; the handoff skill now measures 747
+words against its stated 600, a gap that predates this release (671 before it). Changes: a handoff
+summary from memory stays, but every line names the id or path it rests on; a session holding no lane
+sends a successor the owner named a summary of what it was working on, items marked "no record" where
+none holds them; at Resume the successor re-checks each item against its record before acting on it or
+telling the owner, and the record wins (replaces "verify only the ids it names"). Cause: solo session
+529cde4d handed off a review without a lane as prose from memory listing approved rule 30 as open, and
+session 5310393b, verifying ids only, reopened it; owner approved 2026-10-31.
+
+## [1.4.72] - 2026-10-30
+
+Net `skills/` word delta: **+297**; per-skill split: writing-plans +52, subagent-driven-development
++43 (SKILL.md) +33 (implementer-prompt) +14 (reviewer-prompt), hybrid-execution +28, tracker-mining
++26, opencode-execution +22 (SKILL.md, moved from codex-execution) +18 (dispatch-prompt), super-orchestrator
++22, bd-defaults +17, requesting-code-review +9, brainstorming +8, handoff +5, plan-lane 0. Nothing
+displaced: every addition states where legacy rulings still bind or names the AGENTS.md rule that replaces
+a ruling, so it carries meaning a cut would lose. Changes: (1) rules come from the folder AGENTS.md
+files, loaded on read; legacy bd rulings bind only where no AGENTS.md covers the code, and no ruling is
+filed; (2) owner decisions become AGENTS.md edits the owner approves; a question closes with
+`bd question close --commit <sha>`; "approve" with no option named approves the recommended one;
+(3) an epic label `review:none` replaces the ruling that dropped per-task review, applied by the planner
+to a skill-edit epic; (4) opencode-execution replaces codex-execution (`opencode run`, GPT-6.1 Sol for
+non-UI tasks, DeepSeek V4.1 Flash for small ones); every codex lane mode becomes opencode. Cause: the
+rules migration (PLAN.md on msklad-biklod integ/2026-10-26c @1ad79742) and the owner's "approve" of
+the corpus review page after Fable's final pass.
+
+## [1.4.71] - 2026-10-29
+
+Net `skills/` word delta: **+60**; per-skill split: super-orchestrator +43 (body 937 → 980, over its
+951 budget), handoff +17 (body 619 → 636, over its 600 budget, already over before). Nothing displaced:
+the owner approved these three additions only, so the overage is named here for a later trim. Adds:
+(1) super-orchestrator — owner words become a ruling only once the discussion is closed and every gap
+is asked; an approval naming no option is asked, never read as the recommended one; (2)
+super-orchestrator — the owner approves every wording or design pass, never delegated, never a
+coordinator approval; (3) handoff Resume — owner words relayed in a brief never close a question past
+bd.md's limits (with agent-rules a91e9c2: a finding answers a question only after the answerer reads
+it and the unfiltered rulings). Cause: on 2026-10-29 the Biklod super orchestrator (session c8ea50b8)
+filed R-2654 eight seconds after "both … approved" with an option never shown, filed R-2656/R-2657
+mid-discussion, filed R-2651/R-2652 as coordinator approvals under R-2511 against R-2586(3), and closed
+behaviour forks Q-1280/Q-1282/Q-1283 by unread findings on the strength of a relayed standing word.
+
+## [1.4.70] - 2026-10-28
+
+Net `skills/` word delta: **-6**; per-skill split: super-orchestrator -6 (body 943 → 937, under its
+951 budget). Adds: an implementer dispatched outside a lane follows the coordinator's claim
+(`bd update <id> --status in_progress --assignee "<user> / <model>"`) named in its prompt, otherwise the
+task goes through a lane. Cause: on 2026-10-28 the Biklod coordinator dispatched implementers directly
+(.219.6, .233.9 fix round, .233.21, .233.22) and nobody claimed the beads, so the tracker showed the work
+unowned until close. Displaced: the Proportion paragraph's "forty-minute path" sentence and the
+Rationalizations row repeating that mechanical edits skip the pipeline (both restated the paragraph above).
+
+## [1.4.69] - 2026-09-30
+
+Net `skills/` word delta: **-1**; per-skill split: super-orchestrator -1 (body 944 → 943, under its
+951-word budget). Displaced: "Owner words"' restatement of the reach ladder for words with no
+question, now "take the same reach".
+
+Owner words become a ruling only when they decide something future work must obey — behavior,
+design, vendor, cost, convention. An operational instruction (sequence, go-ahead, push timing,
+close/stop) is executed and never filed. Incident: on 2026-09-30 the Biklod super orchestrator filed
+push-timing instructions as rulings (R-1198, R-1205), following "a statement that names an answer
+becomes a ruling BEFORE the relay"; the owner objected to a ruling for every message. The same
+carve-out landed in the global CLAUDE.md Evidence rule.
+
+## [1.4.68] - 2026-09-29
+
+Net `skills/` word delta: **-114** (49,827 → 49,713); per-skill split: using-git-worktrees -82
+(body 1,117 → 1,035, back under its 1,100-word budget), super-orchestrator -32 (body 976 → 944,
+back under its 951-word budget). Displaced: using-git-worktrees' "Common Mistakes" and "Example
+Workflow" sections, which restated the Red Flags list and Quick Reference table; the
+super-orchestrator "Quick reference" table, which restated "Owner words" and "Design gaps".
+Outside `skills/`, the lane-orchestrator agent grows by 80 words (no stated budget).
+
+Worktree cleanup now has an owner at both merge points. The lane-orchestrator merges a task
+worktree's branch into its lane branch and in the same step runs `git worktree remove` and
+`git branch -d`; it removes each review worktree once its verdict is processed, and its handoff
+and final report name any worktree it could not remove, with the reason. using-git-worktrees'
+Finishing step 4 now sweeps, after the merged branch's own worktree, every task (`task/<lane>-*`)
+and review worktree it spawned that is merged into the base (`--force` only for OS-junk-only
+untracked content), reporting each kept worktree and why; the super orchestrator points at that
+step after merging a lane. Incident: on 2026-09-29 msklad-biklod held 112 worktrees, 76 of them
+on branches already merged into main — lanes left task worktrees behind, the super orchestrator
+removed only the lane worktree, and no skill owned the sweep.
+
+## [1.4.67] - 2026-09-25
+
+Net `skills/` word delta: **+2** (49,825 → 49,827); per-skill split: super-orchestrator +2
+(body 974 → 976, still over its stated 951-word budget). Displaced to pay for the new 55-word
+bullet: the Rationalizations rows "Two small reads add nothing", "Not designing, only
+transcribing constraints" and "Telling the pass the pattern is faster", and the Red flags line
+"Options for a screen behaviour; the answer inside a design-pass prompt" — each restated a rule
+already carried by "Your own calls" or "Design gaps". What it failed to remove: the bullet's
+list marker and one word; the remaining rows and flags each carry a rule stated nowhere else.
+
+The super orchestrator's "The orchestrator" section now names the fields a lane-orchestrator
+dispatch carries — plan id, lane, lane session id, lane worktree and branch, integration branch
+and worktree, read from `bd plan show` — and says a NEEDS_CONTEXT return is answered with the
+missing fields. It also states that plan status never blocks a claim: work no listed lane covers
+gets `bd plan lane add` on that same plan. Incident: on 2026-09-25 a super orchestrator
+dispatched a lane-orchestrator without plan id, lane session id and integration branch and got
+NEEDS_CONTEXT; it then read plan status `done` as meaning nothing on the plan could be claimed,
+although another lane on the same plan claimed fine, bypassed lanes by dispatching bare
+implementers itself, and later created a second plan. The skill named neither the dispatch
+fields nor that plan status does not block a claim.
+
+## [1.4.66] - 2026-09-25
+
+Net `skills/` word delta: **+38** (49,787 → 49,825); per-skill split: subagent-driven-development
++38 (the `implementer-prompt.md` template; `SKILL.md` untouched, inside its 3,813-word budget).
+`agents/implementer.md` adds 49 words and `agents/lane-orchestrator.md` 11, outside `skills/`.
+What it failed to remove: the anchor is a new operational step no existing sentence carried,
+so nothing was displaced.
+
+The implementer now anchors itself in its worktree before anything else: `cd` into the
+absolute path it was given, confirm `git rev-parse --show-toplevel` equals it, and work only
+from it or with absolute paths under it; a mismatch is BLOCKED. The template states it under
+"Your Worktree", the implementer charter repeats it so it binds when a coordinator hand-writes
+the prompt, and the lane orchestrator's dispatch step names it. Incident: on 2026-09-25 the
+implementer for solo-0wy6p.1.21 was dispatched with "Worktree: <abs path>", inherited the
+coordinator's cwd (the main checkout), and ran all 373 of its tool calls there, editing main
+instead of its worktree; nothing in the corpus turned the named worktree into an operational
+anchor.
+
+## [1.4.65] - 2026-09-24
+
+Net `skills/` word delta: **+1** (49,786 → 49,787); per-skill split: super-orchestrator
++1 (1,017 → 1,018). What it failed to remove: the sentence only reorders its list and needs
+"then" to keep the sequence readable, so nothing was displaced; the file stays over its
+951-word budget as before.
+
+The super orchestrator's final message now opens with the owner's decision, before the
+localhost and device currency. The owner reads the pending decision first, and a decision
+at the end of the message sits behind everything else. Tested with the same round's facts
+run twice: under the old wording the blocking question came last, under the new one first,
+and the rest of the order held.
+
+## [1.4.64] - 2026-09-17
+
+Net `skills/` word delta: **+40** (49,746 → 49,786); per-skill split: super-orchestrator
++38 (979 → 1,017), writing-plans +10 (2,949 → 2,959), subagent-driven-development −4,
+brainstorming −2, codex-execution −2, hybrid-execution 0. `agents/planner.md` adds 634
+words outside `skills/`. What it failed to remove: the super-orchestrator paragraph states
+a harness behaviour no existing sentence carried, so nothing was displaced for it, and that
+file now sits 66 words over its stated 951-word budget.
+
+Claude Code forces a forked skill into the foreground when the same skill is invoked while
+an earlier invocation of it is still running (code.claude.com/docs/en/skills.md).
+writing-plans is `context: fork`, so a coordinator could plan only one epic at a time and
+the second invocation blocked its own session. The Agent tool has no such limit. 1.4.53 had
+answered a pass-through planner — a hand-written general-purpose wrapper above the skill's
+own fork — by telling the dispatcher to invoke the skill directly and never through a
+wrapper subagent; that protection stands, and this release names the sanctioned parallel
+route in place of a hand-written one: the declared `superpowers-beads:planner` agent, Opus,
+one per epic, several at once across different epics.
+
+The procedure keeps one home. `agents/planner.md` carries no copy of it: the charter
+resolves the installed plugin directory and reads `skills/writing-plans/SKILL.md` from it.
+The skill now sets `disable-model-invocation: true`, which blocks both a Skill-tool
+invocation and a subagent `skills:` preload (same doc page), so the file read is the only
+route left to an agent and the slash command is the owner's. A baseline run without the
+charter, given the refusal, filed a question and reported BLOCKED rather than read the file;
+the charter's sentence naming the read as the sanctioned route is what turns that into a
+plan (`tests/skill-evals/planner/`). The charter also states what a dispatched planner must
+never do: enter a worktree (it pins the coordinator's whole session and every later lane
+claim is refused) and create children in parallel (parallel creates collide in bd).
+
+Sibling sites that told the coordinator how to reach planning now name the dispatch:
+brainstorming's terminal step and implementation handoff, the epic gates and `needs-plan`
+routes in hybrid-execution, subagent-driven-development and codex-execution, and
+super-orchestrator, which gains the foreground-forcing behaviour itself.
+
+## [1.4.63] - 2026-09-15
+
+Net `skills/` word delta: **0**. `agents/lane-orchestrator.md` grows by 89 words; three sentences that let a lane park on background waits.
+
+On 2026-09-15 in session 99929eb6 (epic zanjir-8okxt) lane 8okxt-rail-88 left eleven
+background zsh jobs running after its handoff, each an `until ! pgrep -f 'verify-88.sh'`
+loop whose own command line matched the pattern, so none could end; lane 8okxt-gutter-89
+handed back twice mid-flight "because three background jobs run". The charter's Never
+bullet forbade holding a turn with a sleep or poll and named backgrounding as the
+compliant path, so an obedient lane moved the poll into `run_in_background`; its Close
+steps named no background job; its Stop conditions did not say a running job is not one.
+Three edits, owner go the same day (superpowers-4yj): the Never bullet forbids a
+wait-only command in the foreground or the background and says the backgrounded job's
+exit re-invokes the lane; Close gains step 0, stop every background job and its
+resources and name them in the thread; Stop conditions state that a running background
+job or child is not a stop condition.
+
+## [1.4.62] - 2026-09-15
+
+Net `skills/` word delta: **+40**. Three skills stop instructing the coordinator to fork.
+
+On 2026-09-15 in hgs-borc the super orchestrator, following "everything else runs forked",
+launched the hgs-8bie.40 planning pass as an Agent-tool fork. A fork copies the session onto
+the session's own model and ignores any model override, so the pass ran on Fable, which the
+orchestration rule names never the execution driver. In the same turn a second skill fork of
+writing-plans ran in the foreground of the coordinator session and flooded it with the
+exploration the owner had ruled out of main. The super-orchestrator skill now says everything
+beyond one-fact checks runs in a dispatched subagent whose model the driving skill's map names,
+never a fork of the session, one such launch per turn; its design-pass, read, and
+workflow-defect lines say "dispatched" in place of "forked". The writing-plans and
+tracker-mining descriptions drop "Runs in its own forked agent"; their `context: fork`
+frontmatter, which honours their own `model:` line (opus, sonnet), is unchanged.
+
+Failed to remove: the super-orchestrator skill was already over its 850-word budget at 951
+words and now stands at 979; the displacement is owed.
+
+## [1.4.61] - 2026-09-13
+
+Net `skills/` word delta: **0** — no skill changed. The `hooks/citation-lint` hook is deleted
+and its `PreToolUse`/`Bash` registration removed from `hooks/hooks.json`.
+
+On 2026-09-13 the hook denied two `bd update --body-file` calls, on solo-eb4.6.163.22 and
+solo-eb4.6.163.23, because it ran `lint-citations.mjs` with no `--repo` argument: the lint then
+resolved every cited path against the session working directory, while the bead bodies cited
+paths from a nested repository root. Real files read as missing and the hook blocked plan edits
+it was never meant to judge. Denying a planner's own write is the worst failure mode available
+to a fail-open guard, and the hook had no way to learn which root a body speaks from.
+
+The citation convention itself stays: writing-plans still runs
+`node <skill-dir>/scripts/lint-citations.mjs <body-file> --repo <root>` as checklist step 4
+before every `bd create` and in Amend Mode before every child update, with the root named
+explicitly — which is the argument the hook could not supply. The ```citations fenced block
+remains a plan-writing convention described by the skill, not by a hook.
+
+## [1.4.60] - 2026-09-12
+
+Net `skills/` word delta: **+118** (super-orchestrator 862 → 951, budget restated from 850 to
+951; shared/bd-defaults 1219 → 1248). Nothing was removed; the skill was already 12 words over
+its budget.
+
+On the zanjir epic zanjir-8okxt, 113 of 115 rulings were filed on the epic, eight of them answers
+to questions raised on single tasks (.23, .26, .30, .35, .51, .59, .63, .66), so every task
+printed a 105-ruling block on each read and a lane orchestrator reached its first dispatch at a
+median of 74K context. The licensing text was the Owner words command line, `bd ruling add
+<epic> …`: bd let the caller choose the bead and never used the question's own bead it already
+read for the topic. bd (53700fb) now derives the bead from `--answers` — the question's bead by
+default, its epic with `--reach epic`, project scope with `--reach project` — and refuses a
+positional bead that disagrees. The skill shows the two command forms and keeps the one judgment
+the tool cannot make, which reach; the cheat sheet carries the same contract.
+
+## [1.4.59] - 2026-09-12
+
+Net `skills/` word delta: **+151** (writing-plans 2804 → 2955); the skill's stated budget moves
+from 2776 to 2960 words. Nothing was removed; the skill was already 28 words over its budget.
+
+An 18-task phase was stopped by the owner because every task spent most of its time on tests
+and gates: the planner wrote one assertion per datum (sixteen tables, sixteen gate items; a
+literal migration roster that seven test files had to extend), and a re-cut concatenated thirteen
+tasks' assertion lists into 17-19 items per task. Lines added that day ran two test lines per
+logic line against 0.6 in early August, and two suite reruns were test-only failures. "Writing
+the Gate" demanded that under-coverage fail without defining the grain, gate-lint left only a
+command or an assertion as legal shapes, and `writing-good-tests.md` was read by the executor's
+TDD skill, never by the planner. The skill gains a "Grain" paragraph: a gate item names one
+behaviour, not one datum; over N things of a kind, one table-driven item derived at run time with
+its count, never a literal roster; a command with its expected count wherever a command can
+observe the outcome; review findings fixed on the existing case; a merged task's gate is the union
+of behaviours, not the concatenation of its sources; read `writing-good-tests.md` first.
+
+## [1.4.58] - 2026-09-08
+
+Net `skills/` word delta: **+113** (super-orchestrator 749 → 862); the skill's stated budget moves
+from 700 to 850 words. One clause was removed: the heartbeat bullet's restatement of the
+orchestration rule about no-op wake-ups.
+
+A one-condition fix ("show the card radio only when selling") was relayed under an owner feedback
+loop to the lane orchestrator, which opened a worktree and dispatched an implementer and a reviewer;
+when the owner asked why a single card fix took so long, the coordinator stopped the lane and edited
+in parallel, and two versions landed. The defect is that a mechanical edit entered the pipeline at
+all. The skill gains a "Proportion" paragraph under "The orchestrator" — a report whose diff can be
+written from the report alone is a mechanical edit, applied directly on the epic branch, gated by
+the suites the touched files can fail, with no worktree, implementer, reviewer or design section;
+triage happens at the relay — and one rationalization row: the mode fixes who receives the relay,
+not the tier. Baseline and passing runs are in the skill's eval scenarios.
+
+## [1.4.57] - 2026-09-08
+
+Net `skills/` word delta: **+750** (48,595 → 49,345); one new skill, `super-orchestrator`
+(750 words). Nothing was removed: no skill covered the coordinator's own conduct.
+
+The interactive coordinator that drives an epic under an owner feedback loop had no skill of its
+own, so its conduct was set turn by turn by whichever rule was nearest. In one session that
+produced inline mining in the main context, a UX gap answered by coordinator-drafted options that
+became a bad ruling, a relay that froze an earlier ruling whose premise the owner had just replaced,
+a screenshot origin read as a scope narrowing, a headless emulator offered as evidence, and a
+persistent orchestrator run far past its budget. The skill states the positive behaviour for each:
+forked reads with a line cap, design gaps routed to a forked design pass the owner approves, owner
+words transcribed as rulings before the relay and re-derived when a control changes, visible
+evidence, the 59-minute no-op heartbeat, orchestrator replacement from tracker state, and the
+release path for corpus fixes. Skill-eval scenarios and a triggering prompt ship with it.
+
+Also in this release: `tests/skill-triggering/run-test.sh` falls back when macOS has no `timeout`
+and passes `--verbose`, which the current claude CLI requires with `--output-format stream-json`;
+without both, every triggering test on macOS failed before the prompt ran.
+
+## [1.4.56] - 2026-09-08
+
+Net `skills/` word delta: **0** (48,595 → 48,595). Agent charters: `agents/lane-orchestrator.md`
++152 words (1,265 → 1,417), one new section "When you author a task body". Nothing was removed:
+the charter had no clause for bodies the orchestrator writes itself.
+
+On zanjir epic zanjir-97i0m (owner feedback-loop mode, R-177) three rulings in two days amended a
+decision an agent had already built: API keys minted on an admin-approval path (R-186), a region
+list stored in a file instead of a table (R-181), and a "select all" that fetched product codes
+under a hard limit of 500 and disabled itself above it (R-189). Under that mode the planner is
+gone and the lane orchestrator authors each task body; its design-fork gate fired only on forks it
+met while executing, never on gaps it filled while writing its own design section, and the
+implementer's gate never fired because the decision arrived pre-made. The new section makes every
+requirement the owner's words, a brief, a ruling or existing code do not force a proposal; a
+proposal that changes what a user sees or can do is asked before the body ships, and a proposal
+forced by one correct design is labelled with the fact that forces it. The mode memory that told
+the orchestrator to surface decisions "in its report" is deleted; the mode mechanics now live as
+ruling R-190 on the epic.
+
+## [1.4.55] - 2026-09-06
+
+Net `skills/` word delta: **+22** (48,573 → 48,595); per-skill split: tracker-mining +13
+(916 → 929) and writing-plans +9 (2,795 → 2,804). Nothing was removed: the growth is the
+argument set on its own line plus the imperative sentence that follows it, and both are the fix.
+
+Two tracker-mining forks in zanjir session 7bd0f7bb (2026-09-05) received correctly substituted
+arguments and both reported having none — the first guessing `audit zanjir-4dly.3`, the exact
+string its own prompt held; the second, given a spelled-out job and scope, answering "No task or
+question was included in this session's input". The cause was the Input line in both `context: fork`
+skills: "`$ARGUMENTS` names one job and its scope" reads, after substitution, as a definition of the
+argument format, and the backticks made the substituted text look like a quoted example. Both skills
+now label the argument as this invocation's own ("**Your job for this invocation:**"), set it on its
+own line without backticks, and follow it with an imperative — "Run that job now.", "Plan it now."
+A fork has no conversation history, so the body is its entire prompt; a body written only as
+procedure reads as documentation.
+
+## [1.4.54] - 2026-09-05
+
+Net `skills/` word delta: **0** (48,573 → 48,573); punctuation only.
+
+The 1.4.53 release joined the appended clause straight onto the existing description text
+with no terminating punctuation ("before touching code Runs in its own...", "capped brief
+comes back Runs in its own..."). Both lines now end the existing sentence with a period
+before the clause starts.
+
+## [1.4.53] - 2026-09-05
+
+Net `skills/` word delta: **+34** (48,539 → 48,573); per-skill split: writing-plans +17
+(2,778 → 2,795) and tracker-mining +17 (899 → 916).
+
+The writing-plans skill was invoked through a general-purpose wrapper agent in session solo
+(2026-09-05), producing a pass-through planner above the skill's own fork. Both `context: fork`
+skills — writing-plans and tracker-mining — now carry the same clause in their `description:`
+line telling the dispatcher to invoke them directly from the coordinator, never through a
+wrapper subagent. The corpus grows by the clause; nothing is removed.
+
+## [1.4.52] - 2026-09-05
+
+Net `skills/` word delta: **+2,123** (46,416 → 48,539, measured after merging main at
+45b1920 and applying the whole-diff review fixes; per-directory, against the pre-merge base 46,372:
+shared +909 — `plan-lane.md` +740 (new file) and `bd-defaults.md` +169; tracker-mining +899
+(new skill, `SKILL.md`); subagent-driven-development +97 — `implementer-prompt.md` +95 and
+`SKILL.md` +2; codex-execution +94; brainstorming +4; handoff +2; writing-plans +2;
+hybrid-execution -4). The corpus grows: a new shared lane step, a new read-only mining skill, and
+typed handoff, fork, and topic machinery cost more words than the whole-section rewrites
+that paid for part of them displaced — hybrid-execution's duplicate inline/subagent bullet
+map, codex-execution's redundant Common-mistakes row, and handoff's trimmed Night prose
+among them. No dedicated compaction pass ran beyond those rewrites.
+
+**writing-plans files a genuine fork as a bylined `bd create … --question` (`bd question add`
+only on an already-created task) from the exported `BD_ACTOR=planner` actor, dep-linking every blocked task to the `Decide:` bead its outcome
+must settle, and the forked skill now pins its own `model:` line so it never inherits the
+parent session's model.**
+
+**The three execution skills claim their epic's lane through the shared
+`skills/shared/plan-lane.md` step right after the epic gate, and the handoff skill's Close
+posts a typed `bd plan handoff` row (Resume reads it and claims the lane) — done ids with commits, next id, parked ids
+each with a question id — in place of the retired anchor-bead comment.**
+
+**A new minimal `hooks/session-id` SessionStart hook appends
+`export BD_SESSION_ID=<session_id>` to `$CLAUDE_ENV_FILE` on every session source including
+resume, with none of the disabled `hooks/session-start`'s side effects.**
+
+**A new read-only `tracker-mining` skill audits and triages a tracker into one capped mining
+brief — a header line, up to 25 `bd authority`-format lines, and up to 12 proposed `bd`
+commands — and never writes to it.**
+
+**Fix Routing now sends every review defect back to the implementer's own live session in
+one round with no proposals, reserving the controller's inline hand only for a mechanical
+edit with no design content, re-running the named check at the fix tip.**
+
+**Every dispatched charter and prompt now teaches the topic pick — file with an existing
+`--topic <slug>` from the printed catalogue, or `--topic pending-<task-id>` with its dots
+collapsed to hyphens when nothing fits — and never mint one.**
+
+**brainstorming now links a new epic to its predecessor with a `--type related` dependency
+plus a shared `feature:<slug>` label at spec creation, readable back with
+`bd authority <epic-id> --depth 3`.**
+
+**`docs/dispatch-env.md` gained a roster-runbook template for the per-repository language
+roster and a per-backend span-start note, and its deterministic-suite loop now also runs
+`test-session-id` and `test-fork-model`.**
+## [1.4.51] - 2026-09-05
+
+Net `skills/` word delta: **+4** (46,412 → 46,416; `skills/handoff/SKILL.md`
++10, `skills/subagent-driven-development/SKILL.md` -6).
+
+**The poll-to-completion premise is removed from the plugin's skill and agent
+copies.** The rules-overlap audit of 2026-09-05 found the clause "a live
+background child at stop is a silent stall, no completion notification / a
+backgrounded command is polled to completion before your turn ends" resting
+on a false premise: the harness Bash and Agent tool definitions both state
+that a background job re-invokes its parent when it exits, and every agent
+dispatched on 2026-09-05 notified an idle parent. The owner approved removing
+the premise everywhere it is copied; the rules corpus and its
+lane-orchestrator charter were corrected in agent-rules commit 01ddb71, and
+this release brings the plugin copies into line: `agents/lane-orchestrator.md`
+is replaced byte-for-byte from the corrected corpus source, and the poll
+instruction in `skills/subagent-driven-development/SKILL.md` and
+`skills/handoff/SKILL.md` is replaced with the re-invocation fact. The drain
+rule stays — a child that exits after its parent stopped reports to nobody —
+only the stated reason and the "poll to completion" instruction go.
+
+## [1.4.50] - 2026-09-05
+
+Net `skills/` word delta: **+0** (46,412 → 46,412; no `skills/` file changed).
+
+**The lane-orchestrator and miner agent declarations ship with the plugin.**
+Both moved out of the rules corpus at `~/.claude/agents/` into `agents/
+lane-orchestrator.md` and `agents/miner.md` so the super orchestrator's
+dispatch resolves them wherever the plugin is installed, not only on the
+machine that authored them. The corpus copies stay in place until every
+installation carries the plugin copy (a later corpus commit removes them).
+`skills/handoff/SKILL.md` was checked for a lane-record passage to name
+`superpowers-beads:lane-orchestrator` in; it describes only the generic
+session-boundary handoff (a `bd comment` record on an anchor bead), never a
+lane's typed `bd plan handoff`, so no edit landed there.
+
+## [1.4.49] - 2026-09-05
+
+Net `skills/` word delta: **+40** (46,372 → 46,412; subagent-driven-development
++40 — `implementer-prompt.md` +20, `reviewer-prompt.md` +20).
+
+**Read discipline lands in the implementer and reviewer charters and dispatch
+templates.** A 2026-09-05 transcript study of 2,493 subagents found tool
+results over 2k tokens, re-read on every later turn, held 2.08B amplified
+tokens. The implementer and task-reviewer agent charters gain a **Read
+discipline** block: read ranges, never a whole file or a bare `cat`; a test
+or build run reports the failing lines, never the full log; send a large
+result to a file and query it. The subagent-driven-development implementer
+and reviewer dispatch prompts each gain one sentence carrying the same rule.
+The read-guard hook itself is paused by the owner and does not land in this
+release.
+
+## [1.4.48] - 2026-09-04
+
+Net `skills/` word delta: **+1,410** (44,747 → 46,157; writing-plans +561;
+codex-execution +313 — `SKILL.md` +170 and `dispatch-prompt.md` +143;
+subagent-driven-development +405 — `SKILL.md` +257, `implementer-prompt.md` +56, and
+`reviewer-prompt.md` +92; hybrid-execution +131). The corpus grows: the planner-only epic gate
+and amend path, the exploration-map contract, and the one-turn discovery, verification,
+pre-flight, and review batches cost more words than deletion of the legacy-plan paths removed.
+No compaction pass ran in this epic.
+
+**Planner products become an execution gate.** subagent-driven-development, hybrid-execution,
+and codex-execution now reject an epic without children, a `plan-ready:` label, an Attention
+Map, or an `exec:` label on every open child. An open `Decide:` child is exempt from the
+`exec:` check only when it blocks an open task; an orphan decision still stops the gate.
+writing-plans owns decomposition: its amend mode plans named children in place and splits an
+oversized task only into sibling tasks under the root epic. A recorded `[pre-flight]` marker is
+final for that plan; execution skips the review when the marker exists and treats a second
+pre-flight as a defect rather than a freshness check.
+
+**A structural index feeds a symbol-keyed exploration map.** `scripts/structural-index` answers
+`symbol`, `callers`, and `tests` for TypeScript and Go and caches a HEAD-keyed index under the
+target repository. Ruling R-23 chose compiler APIs: the TypeScript compiler API and Go's
+`go/parser` plus `go/types`. writing-plans records each task's indexed or new symbols and its
+cross-task seams in `docs/beads/<epic-id>.map.md`; `scripts/map-check` resolves the task rows at
+dispatch and prints the six `fresh`, `STALE`, `CHECK`, `GONE`, `NEW`, and `seam` line shapes.
+Freshness is computed, never written, and no bead write maintains the map.
+
+**Discovery and verification become one-turn batches.** The writing-plans task template, the
+implementer and reviewer charters, the implementer, reviewer, and pre-flight prompts, and the
+Codex dispatch prompt issue their independent reads and index queries together. Implementers
+open the map-selected spans and named discovery queries before the first edit, then run and
+report all acceptance-gate commands together. Reviewers read the review package and map spans
+and run one `callers` query per touched symbol in one turn; pre-flight reads the epic and every
+in-scope open child as one batch.
+
+**The whole-diff review fixed map-check's error boundary and NEW-row span selection.** A valid
+mix of map lines exits 0, an invalid argument or structural-index failure exits 1, and a missing
+or unparseable map or invalid Hash cell exits 2. A `NEW` row now prints a created span only when
+the symbol resolves in that row's own File cell; a same-named definition in another file no
+longer supplies the span.
+
+**Ruling R-26 settles the Q-4 TypeScript toolchain path.** `structural-index` first resolves a
+tracked package directory inside the target repository, then uses
+`STRUCTURAL_INDEX_TYPESCRIPT_PACKAGE`, and exits 2 naming that variable when neither provides
+`lib/typescript.js`. The deterministic suite requires the variable, and `docs/dispatch-env.md`
+now states the prerequisite and the resolution order.
+
+**superpowers-35v stays open after this release.** Task 3's migration sweep is parked on
+zanjir-tracker questions, and Task 14's measurement is pending. The follow-on spec
+superpowers-5f7, structural-index coverage for Kotlin, Swift, and Python, is filed and unplanned.
+
+## [1.4.47] - 2026-09-02
+
+Net `skills/` word delta: **+610** (`skills/shared/model-tiers.md` +469, new — the tier doctrine
+moved out of `skills/hybrid-execution/references/model-tiers.md`, −222, removed;
+subagent-driven-development +194, writing-plans +111, `reviewer-prompt.md` +90, hybrid-execution
+−29, `implementer-prompt.md` −12; brainstorming +2, codex-execution +2, using-superpowers +3,
+wayfinder +2, the seven-skill once-per-session conventions line). Ruling R-14 sets the title-line
+budget of each skill already over budget at the plan-ready commit — subagent-driven-development,
+hybrid-execution, writing-plans, codex-execution — to its landed word count instead of forcing a
+compaction outside the approved design; the other three touched skills (brainstorming, wayfinder,
+using-superpowers) stay within their unchanged budgets. The corpus grows: the new falsification
+requirement and the two-image cap in subagent-driven-development, the
+`review:trivial-deterministic` label rule and template in writing-plans, and the reviewer's
+`REVIEW_WORKTREE` and tier-bound model lines in `reviewer-prompt.md` cost more words than the
+collapsed implementer read and the deleted `references/model-tiers.md` removed; a further
+compaction pass was out of scope for this epic.
+
+**Execution ceremony: collapse mandated calls per task and re-tier per-task review.** Fourteen
+days of transcripts showed one dispatched task costing the implementer about 30 calls and 78K
+tokens before its first edit, the reviewer about 44 calls and 78K tokens, and the coordinator
+about 19 calls and 44K tokens, and where that went: the implementer's contract read three times
+over (the rulings block printed twice, a mandated third read firing on 1.7% of dispatches), the
+claim hook injecting rulings the coordinator never reads, the review tier keyed on file count so
+a templated five-file task drew a full reviewer, an invariant line contradicting the tier skip,
+the scope glance erroring on every bead, only 27% of reviewers getting a pinned worktree while
+90% ran mutation-shaped commands, no rule binding the reviewer's model, and 70% of what reviewers
+caught being a green test that proved nothing. Fifteen changes close it without dropping a review
+the data shows catching defects — per-task review on judgment tasks and the whole-diff review at
+two or more tasks both stay. The implementer's contract read collapses to one `bd workfile` call,
+replacing the three separate reads. The claim hook in `~/.claude/hooks/claim-rulings-guard`
+prints ruling ids and first lines only, keeping the injected context under 1.5 KB. writing-plans
+emits the `review:trivial-deterministic` label at plan time so a command-only task or one whose
+artifact a later task executes skips the per-task reviewer, and the coordinator re-runs its gate
+commands itself and states the tier line. The reviewer's model is bound to the task's tier map
+and stated in the route line, no longer the coordinator's free choice. `review-package` creates
+the pinned review worktree and prints its path; the reviewer runs every command there,
+unconditionally. Falsification — one mutate/check/revert experiment per gate item that claims
+coverage — is required, not encouraged, for both the implementer and the reviewer, capped at five
+per task. Both dispatches cap image reads at two, never the same image twice. The scope glance
+reads the Files label instead of erroring on it, and the trivial-deterministic tier reads the
+Acceptance Gate block only. The tier doctrine — the model map, the floor, the pinned-contract
+rule — moves into one shared file, `skills/shared/model-tiers.md`, so subagent-driven-development
+and hybrid-execution each carry only the map line and a pointer. The bd-defaults conventions line
+reads once per session, skip if already read, across all seven skills that carry it. Pressure
+tests in `tests/skill-evals/hybrid-execution/` (the trivial-deterministic label and the
+reviewer-model-tier scenarios, plus the eight pre-existing evals re-run) and
+`tests/skill-evals/implementer/` (a green test with no falsification, pressured toward DONE, must
+run the experiment first) all pass.
+
+## [1.4.46] - 2026-09-02
+
+Net `skills/` word delta: **+598** (handoff +598, new skill). Nothing removed: the skill fills a
+gap no existing text covered, and the compaction it enables lands elsewhere — the resume-by-
+transcript habit it replaces cost 34K–58K characters per read.
+
+**handoff skill: session close, resume, night-session preparation.** Mining the last 14 days of
+solo and zanjir transcripts showed 39 of 93 and 19 of 31 sessions opening with "read last
+session's latest 8-10 messages", and the fresh session then reading its predecessor's raw JSONL —
+those are the sessions that peaked at 500K–800K tokens, past the 400K boundary the orchestration
+rule sets. The rule already demanded "pointers to durable state, never a retelling" at the
+boundary, but nothing produced those pointers or told a fresh session where to look. The skill
+adds three procedures: **Close** writes a fixed 20-line record (header, Done, Next, Parked, a
+5-line Thread with the pending decision, Rules) as a `[handoff]`-tagged comment on one anchor
+bead per project (`Session handoffs`, label `handoff-anchor`) and delivers it as the final message
+or by `SendMessage`; **Resume** reads that record with `bd comment list <anchor> --tag handoff
+--last 1`, verifies only the beads it names, and never opens a transcript — the habitual prompt is
+this procedure; **Night**, only on the owner's explicit words, pairs one open session to one epic
+via `ListAgents`, refuses two sessions on one repository, sends one brief each, and the receiver
+runs the named execution skill, never rules, parks questioned tasks, and closes with a `day`
+record for the morning. Nothing fires before the owner's words or the boundary actually reached.
+Pressure tests live in `tests/skill-evals/handoff/` (six scenarios, `CREATION-LOG.md`): all five
+original baselines passed the decision lines without the skill but drifted on the artifact — three of
+three Close runs invented `bd comment add` flags, none produced the `Rules:` line, the night
+receiver closed with the wrong header — and all six pass with the drift gone once the skill pins
+the template and the one-argument posting command (the sixth, the night sender's pairing, was
+added when the whole-diff review found the acceptance criterion untested).
+
+## [1.4.45] - 2026-09-02
+
+Net `skills/` word delta: **−12** (subagent-driven-development −61, hybrid-execution +26,
+codex-execution +23). The two callers grew because each now states the one-time rule inline
+instead of pointing at a three-branch resolution table.
+
+**Pre-flight runs once per plan and never re-runs on a stale marker.** The marker used to be a
+freshness key: `git log <sha>..HEAD` non-empty, or any open child touched since, re-ran the review
+scoped to whatever had moved. On 2026-09-02 in the solo project that fired over three epics — main
+had run 10 commits / 15 files past the marker because the previous session landed tasks without
+re-marking — and cost ~363K Sonnet tokens and five minutes to return exactly one finding, which
+`bd rulings` precedence (rulings outrank bodies) already covered. The re-run is redundant in this
+workflow: landed work invalidating a body is caught downstream anyway, because executors read
+`bd rulings` before the body and re-read every cited file under "Before you start", and Drift
+Detectors stop a task whose premises moved. So the marker's sha becomes a record of WHEN the review
+happened rather than a freshness key — "Marker current" / "Marker stale" and the scoped re-run are
+deleted, along with the "a session's first claim requires a marker verified current or earned this
+session" sentence; present → skip with one line citing it, absent → run the full review once over
+the epic spec plus ALL open beads and write the marker. The five semantic classes, the one
+read-only subagent per epic, and the single batched question are unchanged. A body rewritten after
+the marker is the rewriter's job — writing-plans' citation lint runs at write time — not a trigger
+for a second pre-flight.
+
+## [1.4.44] - 2026-08-31
+
+Net `skills/` word delta: **+66** (writing-plans +66). The growth is the run-model reframe,
+not new doctrine: the frontmatter flag, the rewritten Venue line, and an Input line naming the
+argument. Nothing removed — the procedure (checklist, task structure, gate, decision beads) is
+untouched.
+
+**writing-plans runs forked (`context: fork`).** The skill was being invoked twice — once in the
+coordinator and once in the dispatched planner — because the "dispatch a planner, never the
+coordinator's session" instruction lived inside the body and could only be read by invoking the
+skill, which loaded the whole ~2000-word procedure into the very session the Venue rule exists to
+keep clean. `context: fork` makes the harness fork on invocation: the body becomes the subagent's
+prompt, never enters the coordinator, and returns only the receipt. It fixes every entry point at
+once — the brainstorming handoff and a fresh "go with writing-plans" — with no upstream routing
+rule, because the isolation is now a property of the skill. The Venue line changes from "a
+dispatched planning agent" to "you ARE the forked agent" so the planner does not re-dispatch, and
+Input names `$ARGUMENTS` as the root bead id since a fork carries no conversation history. Verified
+no manual planner dispatch existed elsewhere to remove (brainstorming only "invokes", which now
+auto-forks).
+
+## [1.4.43] - 2026-08-30
+
+Net `skills/` word delta: **+105** (subagent-driven-development reviewer-prompt + implementer-prompt,
+hybrid-execution). Turn-axis discipline for dispatched agents: experiment budget, chained checks,
+prose cap, bd prime pointer. Backfilled 2026-08-31 — the 1.4.43 release commit shipped without a
+fork-changelog entry.
+
+## [1.4.42] - 2026-08-30
+
+Net `skills/` word delta: **+181** (requesting-code-review +100, codex-execution +54,
+systematic-debugging +16, subagent-driven-development +15, using-git-worktrees +1,
+hybrid-execution -2, writing-plans -3). What it failed to remove: `requesting-code-review`
+was rewritten in place where the audit's own reviewer offered "reduce it to a thin pointer"
+as the alternative. Rewriting kept ~100 words that a pointer to
+subagent-driven-development's BASE and triage discipline would have deleted outright. That
+displacement is deferred, named here so it is not lost.
+
+**Binding state and authority move inside the typed system.** `plan-ready` becomes a label
+(`bd label add <root> plan-ready:<sha>`) read by all three execution gates — comments are
+narrative, and on a busy root the marker scrolled out of the gate's `--last 5` window and
+the gate then reported a finished plan unplanned. `codex-execution`'s epic gate had never
+checked the marker at all, so a half-written plan was dispatchable on that path alone.
+`pre-flight` stays a comment — it needs a timestamp and no typed bd surface carries one
+(findings are write-only: `bd finding` has only `add`, there is no findings field, and
+`bd show --include` takes only comments/labels/deps) — but it gains the `[pre-flight]` tag
+and its gate reads `--tag pre-flight --last 1`, which removes the scroll-out failure
+without inventing a mechanism. `codex-execution`'s blocker loop filed agent-derived
+resolutions as `bd ruling add`, minting owner-grade authority that then bound every future
+claim through `bd rulings`; it now files a finding and closes the question with it.
+
+**A live wrong-answer defect.** `requesting-code-review` was an unconverted upstream
+remnant and `codex-execution` requires it for the terminal whole-diff review. It instructed
+`BASE_SHA=$(git rev-parse HEAD~1)` — the command subagent-driven-development forbids by
+name — so the final review of an entire plan silently saw only the last commit of each
+multi-commit task. Its severity-driven fix order ("Fix Critical immediately") also
+re-opened the authority-conversion loop that burned nine rounds on one bead; it now triages
+by authority first. Two further defects in the same file: it cited an "Executing Plans"
+workflow that does not exist in this fork, and both its mandatory-review line and its
+"never skip because it's simple" red flag collided with the trivial-deterministic tier.
+
+**Smaller corrections.** `writing-plans` phase-N+1 planning read
+`bd comment list --tag next-phase`; the tag filter exists but nothing has ever written that
+tag — a reader with no writer, now `bd children`. `systematic-debugging` licensed a third
+fix attempt where the global rule stops at two. `using-git-worktrees` listed suite commands
+from memory forty lines after its own instruction never to compose them from memory, at the
+last gate before main. Re-planning now removes the prior `plan-ready` label before writing
+the new one.
+
+**Provenance.** A two-project token audit (211 Claude Code sessions) diagnosed the
+workflow, then a skills defect hunt found these; every citation was verified against the
+live fork and the live bd CLI before this entry was written. The migration labels for the
+two epics in flight at release time (`solo-7hfl`, `solo-jxoi`) were written before the
+gates flipped, so no in-flight plan was stranded.
+
+## [1.4.41] - 2026-08-28
+
+Net `skills/` word delta: **+75** (shared/bd-defaults +62, sdd implementer-prompt +13).
+Doctrine addition with no predecessor prose to displace.
+
+**Question closure.** bd epic beads-9gn (same day) gave questions their missing exits:
+`answer --finding` (a verifiable fact resolved it — forks still end only in rulings),
+`close --reason moot|duplicate|superseded --note`, and `question list` as the read-only
+blocked frontier. Answer and close refuse `BD_ACTOR=executor`, so an executor cannot
+unblock its own bead — probed live (three refusals, ready restored on both coordinator
+paths, close-without-note refused without mutating) before this entry was written.
+
+## [1.4.40] - 2026-08-28
+
+Net `skills/` word delta: **+419** (shared/bd-defaults +166, hybrid-execution +79,
+codex dispatch-prompt +60, writing-plans +48, sdd implementer-prompt +33,
+codex-execution +19, sdd SKILL +14). Outside `skills/`: `agents/implementer.md`
+(deviations → findings, question filing, BD_ACTOR identity). The growth displaces
+only the implementer-prompt's comment-ruling semantics; the typed-record reference
+in bd-defaults is new doctrine with no prose predecessor to remove.
+
+**Typed decision records.** bd now ships ruling/question/finding record types, and the
+corpus adopts them: rulings are read via `bd rulings <id>` (inheritance-resolved — a
+parent-epic ruling binds the child and is invisible on the child alone), executor
+deviations file as findings, unresolved forks file as questions that remove the bead
+from `bd ready`, and every executor shell exports `BD_ACTOR=executor` (bd refuses
+`bd ruling add` from it — fail-open gate, so the preamble must set it). Comments are
+demoted to narrative, status, and evidence.
+
+**The incident (zanjir, 2026-08-27/28 rulings audit).** 448 comments across 230 beads
+held 281 prose rulings and zero typed ones. Comment-skipping recurred despite two
+2026-08-26 rule tightenings — the label "comment" carries a skippable prior no
+instruction overrides — and the audit's one false finding (zanjir-4dly.1.21) was
+exactly the case no comment discipline can fix: the ruling was amended on the parent
+bead, invisible to every child-bead reader. All gate mechanics verified live against
+bd this session: refusal message, ready-queue removal, resolver output.
+
+## [1.4.37] - 2026-08-26
+
+Net `skills/` word delta: **−2,917** (writing-plans −2,569, plan-document-reviewer-prompt
+−287 deleted, subagent-driven-development −72, using-git-worktrees −6, implementer-prompt
+−1, hybrid-execution +18). Outside `skills/`: `agents/suite-gate.md` deleted; two hooks
+(`citation-lint` new, `gate-lint` reference fix) and `skills/writing-plans/scripts/lint-citations.mjs` added.
+
+**The incident (session dae47986, solo repo).** The 4,559-word writing-plans doctrine
+planned an eleven-task epic; pre-flight invalidated nine. Eleven of ~25 findings were
+fabricated verbatim facts one command refutes — a string "restored" from a commit that
+never held it, a file cited 7×, gate items quoting UI strings absent from the locale
+catalogue, a prop absent from the interface, a CSS token that exists nowhere. On a sibling
+task the pinning doctrine injected a security defect: a pinned `paymentId: number` over a
+documented free-text column, no adapter named, and the executor obeyed the pin over the
+docstring beside it. Owner ruling: generation is the defect source, not detection —
+detail a planner never verified is defect injection with authority attached.
+
+**1.4.35's recorded objection is answered, not overridden.** Self-Review's deletion was
+rejected then because "the structural lint proposed to replace it" did not exist and no
+class owned per-citation re-verification. The lint now exists (`lint-citations.mjs` +
+the `citation-lint` hook, which denies a `bd create`/`bd update` landing a task body with
+an unverified citation), its test corpus is the eleven mechanical findings (fixtures for
+the missing-file, wrong-string, fabricated-commit and stale-line-pin classes fail it; the
+truthful body passes), and pre-flight class 5 keeps the semantic half (an authority that
+exists but does not say that).
+
+### Changed
+
+- **writing-plans rewritten thin (4,559 → 1,990 words):** a task body carries intent,
+  Files, gate, and scope fences; every verbatim fact is machine-verified via the
+  ```citations block or absent — the executor resolves specifics against the live tree
+  and logs deviations. Rendered-page facts are unplannable: visual gates name what to
+  verify in a browser, never the DOM the planner imagines. Self-Review deleted;
+  `preflight:required/light` stamps deleted; Drift Detectors, the Attention Map, the TDD
+  skeleton, Decision Beads triage, the Execution Annotation rubric (eval-guarded), and
+  the gate doctrine's three load-bearing ideas (observable outcome, failure-regime
+  fixture, preservation item) all survive, compressed.
+- **Pre-flight is the semantic residue (subagent-driven-development):** one read-only
+  reader per epic, five classes a script cannot reach; the stamp scoping paragraph is
+  gone. The epic gate now checks the `plan-ready:` marker (also in hybrid-execution) —
+  the marker previously had no consumer anywhere in the corpus.
+- **The suite gate runs in the coordinator's shell** (using-git-worktrees baseline and
+  finishing, sdd, hybrid-execution, implementer-prompt; `agents/suite-gate.md` deleted):
+  the dispatched gate burned a context window to report ten zeros and three
+  cold-worktree BLOCKEDs. Runbook-sourced commands stay mandatory — that clause's
+  incident was about provenance, not venue. The warm peer gate-runner survives as the
+  listed exception. Mirrored in the owner's `rules/orchestration.md` the same day.
+- **plan-document-reviewer-prompt.md deleted:** orphaned — zero live references
+  corpus-wide.
+- **[1.4.36] backfilled below:** its release commit carried the entry content but this
+  file was never updated.
+
+## [1.4.36] - 2026-08-26
+
+Net `skills/` word delta: **+95** (writing-plans +95). From the release commit, entry
+backfilled by 1.4.37: measured on an 11-task planning run, 52% of session wall time was
+composing task bodies averaging 2,288 words against a 347-word template, because one
+behavior rendered three times per bead. Added the Single Statement rule (a behavior is
+pinned once; gates and steps cite the pin); `hooks/gate-lint` stopped rejecting
+outcome-phrased items that merely contain a mechanism word.
+
+## [1.4.35] - 2026-08-26
+
+Net `skills/` word delta: **+582** (writing-plans +182, subagent-driven-development
++147, hybrid-execution +108, reviewer-prompt +94, using-git-worktrees +51).
+
+**What it failed to remove, and why.** writing-plans' Self-Review (297 words) was
+the largest deletion on the table and the one this release was argued for. It was
+rejected on evidence: both defects it caught in the session that prompted this
+release were semantic — a miscited API path and a missing drift detector — and
+neither is reachable by the structural lint proposed to replace it. Pre-flight's
+classes do not include per-citation re-verification, so deleting Self-Review
+would have left that class with no owner anywhere in the corpus. A deletion must
+name what now covers the deleted catch-class; nothing did.
+
+Also rejected: softening Drift Detectors (the template makes an omission
+*detectable*; it does not manufacture it), and skipping the worktree baseline on
+a CI receipt (a CI receipt proves that commit was green in CI's environment, a
+different proposition from this worktree — and the skip's key requires the
+controller to compute the affected gate set, which is the computation that
+produced the incident below).
+
+### Changed
+
+- **The planner is dispatched, not the coordinator (writing-plans, Venue):**
+  Verify Before You Cite opens every cited file, and in the coordinator that
+  reading is resident to session end. Measured on the session that prompted this
+  release, it was the largest single block of a planning turn's context. The
+  planner pays it once in a disposable window and returns a receipt.
+- **Planning ends at a `plan-ready` marker (writing-plans, Handoff):** the
+  checklist's terminal step invoked an execution skill directly, welding
+  authoring and execution into one window and taking the execution-mode decision
+  out of the owner's hands. The marker's consumer is the execution skills' epic
+  gate.
+- **Every pin cites its authority; pre-flight gains class 6 (writing-plans,
+  subagent-driven-development):** a planner that resolves an owner-level fork
+  instead of returning it writes a contract that is internally coherent and cites
+  real files — the shape classes 1 and 2 pass. Provenance is the only handle, and
+  it is the fabricated-authority check the reviewer already runs, moved to plan
+  time.
+- **Pre-flight scopes by a plan-time stamp (subagent-driven-development):** risk
+  is a fact about the body, and the controller may not open bodies. The planner
+  stamps `preflight:required` / `preflight:light`; the controller reads the
+  stamp. Unstamped is `required`.
+- **Reviews return receipts (reviewer-prompt, Report format):** per-item
+  narration, Strengths and Assessment are transmission cost. A gate line naming
+  its command and exit code is shorter and re-runnable. Experiments and the
+  proposal lane are kept explicitly against the shrinking pressure.
+- **Source reads are failure-triggered (hybrid-execution, Loop step 2):** the
+  Loop forbade opening a task *body* and said nothing about the source. Surveying
+  a task's files before dispatch makes that reading resident; the controller's
+  real need is the cited hunk after a FAIL or BLOCKED.
+- **No second whole-diff review at one task (hybrid-execution):** it spans the
+  same BASE..HEAD the per-task reviewer already read.
+- **The baseline is a dispatched gate, command sourced from the runbook
+  (using-git-worktrees, step 4):** step 4 told the coordinator to run the suite
+  directly, contradicting the dispatch doctrine its own Finishing section adopts.
+  The incident: a coordinator composed a baseline command from memory and ran a
+  web-app's `node:test` suite in place of its component suite. The wrong suite
+  went green and the file under change was never executed. The runbook was right;
+  the memory was not.
+
+## [1.4.34] - 2026-08-25
+
+Net `skills/` word delta: **+141** (implementer-prompt +141). Nothing displaced.
+The candidate considered and rejected: step 4's Drift Detectors gloss, which
+reads as redundant with the charter until you notice the charter states the rule
+and the step states the *exception* — the in-contract test update. Removing it
+would have cost a real licence to buy an unrelated addition.
+
+### Changed
+
+- **The implementer reads the bead's COMMENTS, not just its body
+  (implementer-prompt, Get Your Contract):** step 2 called the body "your
+  complete contract AND your working copy". It is not the complete contract.
+  Owner rulings, review verdicts and BLOCKED reports land in comments, and no
+  step fetched them — `bd comment list` appeared zero times in the file. An
+  implementer dispatched by the template therefore never saw a single recorded
+  ruling.
+
+  Measured cost, on one bead (`solo-eb4.6.82.2`), all of it invisible to the
+  body: an owner ruling that a scheduled renewal charges only within grace and
+  never a suspended tenant; a reviewer's BLOCKED naming the exact extraction
+  signature and its six outcomes; three defects still unfixed behind a commit
+  that reads as complete; and an inherited fork explicitly marked unruled, which
+  an executor reading only the body would have closed by guessing. A sibling
+  bead recorded the same class: without its comment "the executor would have
+  landed a red suite and reported green."
+
+  Step 2 loses the "complete contract" phrasing that licensed the omission. A
+  new step 3 makes `bd comment list` required, fixes precedence (a recorded
+  ruling outranks the body it contradicts), fixes reading order (oldest to
+  newest, later supersedes earlier), and names the three things an implementer
+  must carry out: a ruling is settled and never re-litigated; an inherited open
+  fork is not the executor's to close and stops the turn as BLOCKED; and on a
+  RESUMED task the prior verdict, not the body, is the true state of the work —
+  the body describes the task, never its progress.
+
+## [1.4.33] - 2026-08-24
+
+Net `skills/` word delta: **+204** (subagent-driven-development +149,
+hybrid-execution +34, reviewer-prompt +21). Nothing displaced — budget waived by
+the owner.
+
+### Changed
+
+- **A FAIL's re-review is tiered by the fix, not by the fact of the FAIL
+  (subagent-driven-development, Review Tier; hybrid-execution, FAIL-freeze):**
+  the corpus keyed re-review on the *verdict* — Fix Routing let a controller
+  apply and check a PASS-round fix inline, while the freeze clause demanded a
+  dispatched re-review for any FAIL-round fix however mechanical. Measured cost
+  of the coarse key: one 64K dispatched re-review for a fix that was a single
+  exported function plus one test, whose flipping check the finding had already
+  named.
+
+  A fix is now controller-clearable only when every open finding is fully
+  specified by the finding itself, each names the deterministic check that flips
+  it, and the fix diff stays inside the files those findings cite. The
+  controller then re-runs the reviewer's own checks — executing the verdict
+  condition rather than replacing the reviewer, since FAIL-freeze already
+  forbids rebasing reviewed commits, so everything else is byte-identical.
+
+  Bounded against salami-slicing — a controller decomposing a broad fix into
+  mechanical-looking pieces to self-clear past the reader a FAIL had just proven
+  necessary. The blast-radius test is a set comparison, not judgement; the
+  checks must be reviewer-authored, so a controller cannot invent a friendly
+  one; a second FAIL on the same task always dispatches; the tier declaration is
+  visible per Review Tier's standing norm; and the end-of-plan whole-diff review
+  reads every self-cleared commit regardless. Fix Routing's "fully specified"
+  boundary and this one are deliberately the same line — a fix the controller
+  may apply is a fix it may clear; a fix needing implementer knowledge needed
+  judgement, and judgement in the fix means judgement in the review.
+
+- **The reviewer prompt gains the `[exact commands]` slot the implementer prompt
+  already had (reviewer-prompt.md, Constraints):** the rule "run only this
+  task's targeted tests — NEVER the full suite" was already correct and already
+  there. What was missing was the slot, so "targeted" was left to the reviewer's
+  reading — and in a multi-workspace repo "the entire component suite" reads as
+  targeted while "the full suite" reads as project-wide. Five reviewers in one
+  session ran `npm ci` plus a whole workspace suite through that gap. The line
+  is a floor, not a ceiling: it explicitly preserves the reviewer's freedom to
+  add narrower checks and falsification experiments, which is where every one of
+  that session's outcome-changing findings came from.
+
+### Not changed, deliberately
+
+- **The review rate and the per-task review tier.** Five reviews in the measured
+  session cost ~28% of dispatch spend and three of them changed the outcome —
+  including one where every test passed, coverage was real and mutation controls
+  fired, while the feature did not exist because a computed header was never
+  read by any client. Release 1.4.32 made the implementer report evidentially
+  worthless by design, which leaves the reviewer as the only surface that can
+  catch that class. Thinning reviews would spend a margin that release had just
+  consolidated.
+- `agents/task-reviewer.md` — its charter already says targeted checks and
+  falsification experiments; correct as written.
+- The reviewer-prompt verdict wording ("flips only after the fix lands and its
+  check re-runs") — already compatible with tiering; editing it would restate
+  the rule in a second home.
+- `hybrid-execution/references/hybrid-parallel.md`'s merge-back run — it tests
+  *composition*, a different question from the reviewer's isolation run, and is
+  not redundant with it.
+- `agents/suite-gate.md` and `implementer-prompt.md` — already correct; the
+  implementer prompt's `[exact commands]` slot is the model this release copies.
+- Plan-side gate items that name workspace-wide commands would reopen the
+  loophole from above the prompt. That belongs to writing-plans' gate-lint and
+  is named here rather than swept here.
+
+## [1.4.32] - 2026-08-24
+
+Net `skills/` word delta: **0** — the change lands entirely in `agents/`
+(`implementer.md` 756 → 973). The charter grows ~217 words once per dispatch
+and removes on the order of 10,000–15,000 controller-resident tokens per
+session.
+
+### Changed
+
+- **The implementer report is routing input, not the evidence record
+  (agents/implementer.md):** the old format asked for every gate item PASS/FAIL
+  with evidence, files, commit SHA and free prose — a verification-shaped format
+  on a routing-shaped channel. Nothing in any close path ever consumed it:
+  Termination closes on the reviewer's deterministic artifacts, the Invariants
+  already say "Treat an implementer's self-review as the review. Both happen",
+  and the controller cannot distinguish real pasted output from fabricated
+  pasted output anyway. The gate now lives in the bead as flipped checkboxes,
+  the commits and files in git, and the report carries status, gate exceptions,
+  deviations, experiment outcomes, test counts and concerns.
+
+  Bounded on both sides, because compaction has a measured mirror failure — two
+  thin reports each cost a full extra verification pass. The floor binds like
+  the ceiling ("a status with nothing the orchestrator can route on is not a
+  report"); deviations are **stated, never referenced**, because the second of
+  those failures said only that its deviations were "recorded on the bead" and
+  the fetch is what cost the pass; and BLOCKED / NEEDS_CONTEXT are exempt from
+  the ceiling entirely — a blocked report is the least recoverable artifact in
+  the system and one of them is why release 1.4.31's prefactoring task exists.
+
+  Experiment outcomes get a named slot for the first time — "mutation" appeared
+  nowhere in the charter, which is why controllers were hand-writing report
+  formats into dispatch prompts in violation of implementer-prompt.md's own
+  "Prompts restate neither". The wording deliberately echoes the task-reviewer
+  charter's formula: what you broke, what caught it (or didn't), the revert.
+
+- **The Self-Review gate bullet (agents/implementer.md), same commit:** "List
+  each item PASS/FAIL with evidence in the report" was the direct generator of
+  the recitation and would have contradicted the new section. It now reads that
+  the flipped checkbox is the per-item record. The verification obligation is
+  untouched — only the transmission changes.
+
+### Not changed, deliberately
+
+- **`agents/task-reviewer.md` and `agents/suite-gate.md` — excluded loudly.**
+  Their reports are the opposite pole by design: a verification agent's product
+  IS deterministic evidence toward the controller, because the controller closes
+  on it. Sweeping compaction into either would be the one-sided version of this
+  change.
+- `skills/subagent-driven-development/implementer-prompt.md` — its status-token
+  line delegates to the charter rather than restating it, and its header's
+  "Prompts restate neither" is the standing law that ends hand-written format
+  blocks now that the charter serves routing.
+- `subagent-driven-development/SKILL.md` — Implementer Status consumes the four
+  statuses, which are unchanged; Termination and the self-review Invariant are
+  *why* this compaction is safe and are cited above rather than edited.
+- `reviewer-prompt.md` — its "What Implementer Claims They Built" slot accepts
+  the compacted report, and "Do Not Trust the Report" is why no reviewer-side
+  compensation is needed.
+- `hybrid-execution/SKILL.md` and `references/hybrid-parallel.md` — status
+  vocabulary only; the latter contains no report or status mentions (verified).
+- `codex-execution/SKILL.md` — a different channel by design, already
+  compaction-shaped: the executor comments evidence on the bead and the
+  orchestrator re-runs every count. Precedent, not a change site.
+
+## [1.4.31] - 2026-08-24
+
+Net `skills/` word delta: **+151** (`writing-plans` 4131 → 4282). Nothing
+displaced — the owner waived the budget for this release, so the clause was
+sized to carry its own boundary rather than to fit. `writing-plans` was already
+131 words over its declared 4000 before this edit; that debt predates it and is
+untouched.
+
+### Added
+
+- **Seal Files lists against the call surface (writing-plans):** the seal rule
+  gains its second face. A list is sealed from the files a task will edit and
+  never from the symbols it must call, so a task whose reuse target is private
+  reaches its executor with two legal moves — retype the logic or report
+  BLOCKED — and both cost a round while the retyped copy passes every gate and
+  drifts. The planner now confirms a cited symbol's visibility during the
+  signature check it already performs: reuse must be exported, or the home file
+  joins Files carrying the export as its step.
+
+  Bounded deliberately, because the first draft was one-sided and rejected: the
+  listing licenses exactly the visibility change and never the symbol's body or
+  its neighbours; the file-step tie and the citation-pass anchor hold down
+  Files-list inflation, which would otherwise degrade hybrid-parallel lane
+  eligibility; a contested export routes to a decision bead rather than
+  manufacturing a stall. Already-exported reuse adds nothing — the check rides
+  a pass the planner already makes, so a task reusing public helpers generates
+  no Files change, no step and no gate item.
+
+### Not changed, deliberately
+
+- The five sites `1.4.28` swept for the STOP-on-unlisted-files law — the
+  writing-plans task template's gate item and drift detector, the implementer
+  prompt, hybrid-execution's ballooning rule, and the reviewer prompt's matching
+  check. This release changes no STOP semantics; the export authorisation
+  arrives through the Files list, which every executor-facing site already
+  honours unchanged. Both copies that prompted this edit were caught by the
+  reviewer's existing check — the detection side works, a round late, and
+  relaxing the executor side would have rebuilt the failure in mirror image.
+- The Self-Review bullet at the citation-audit step. Its umbrella ("re-run each
+  rule section above") covers the new clause, and duplicated restatements are
+  debt by this corpus's own rule.
+
+## [1.4.29] - 2026-08-23
+
+Net `skills/` word delta: **+29** (43,321 → 43,350) — displaced inside
+`brainstorming` to fit 2093/2100: the "Multiple choice preferred" key principle
+(verbatim duplicate of a process bullet) removed, and the "Present options" /
+"Lead with your recommended option" bullet pair merged.
+
+### Added
+
+- **Prune before proposing (brainstorming):** checklist step 4 and the
+  Exploring-approaches section now require pruning before options reach the
+  owner — a branch excluded by a ruling, code, spec, or a document already read
+  this session is not an approach; only survivors are proposed. (Measured:
+  2026-08-22 session, item-6 payment brainstorm offered a one-off-charge branch
+  already excluded by the auto-renewal scope bead read the same session; two
+  earlier sessions re-raised settled decisions the same way.) Exclusion: the
+  "Explore alternatives" key principle is unchanged — it governs generation
+  breadth before settling, not presentation. Companion rule landed the same day
+  in the owner's global CLAUDE.md Scope line ("only survivors are genuine").
+
+## [1.4.28] - 2026-08-22
+
+Net `skills/` word delta: **+152** (43,169 → 43,321) — nothing displaced; the
+additions were shaved to fit `writing-plans` at exactly 4000/4000, which leaves
+that file with zero headroom for the next change.
+
+### Added
+
+- **Files-list sealing (writing-plans):** a Files list is an absence claim symbol
+  grep cannot verify — grep finds callers, never constrainers. Seal only after
+  adding each touched module's test files, found by module path or by running
+  them, plus any import-ban or dependency-direction config. (Measured: 4 contract
+  defects in one zanjir session, all the same shape — a test pinning old
+  behaviour through a public function, a structural import ban, a pool stub
+  matching SQL text. Each cost a dispatch round-trip.)
+
+### Changed
+
+- **In-contract test updates no longer stop the turn.** A test broken solely by
+  an in-contract change is in-contract to update; a test encoding a structural
+  ban (import guards, dependency direction) still stops — that is a design
+  conflict, not a pin. The licence is the planner's to grant, so an executor
+  exercising it is not self-widening its contract.
+- **Sibling sweep — one wording, five sites.** The STOP-on-unlisted-files law was
+  restated in three places, not single-sourced as the 1.4.25 dedup pass implied:
+  `writing-plans` task template (gate item + drift detector), the
+  implementer prompt, and hybrid-execution's ballooning rule. The reviewer
+  prompt's Files-list check got the matching carve-out — without it the reviewer
+  re-mints downstream the round-trip the executor correctly avoided.
+  `agents/implementer.md` carries no restatement (verified).
+
+## [1.4.26] - 2026-08-19
+
+Net `skills/` word delta: **+68** (43,069 → 43137) — two mechanisms bought by one displacement.
+
+### Added
+
+- **Second-FAIL split (subagent-driven-development):** a task that fails review
+  twice splits along its file map before any further round. (Measured: Task Size
+  raised dispatch medians to 12–20 min while 9 solo tasks looped 3–4 review
+  rounds — redo cost now scales with the split piece, not the whole task.)
+- **Codex-fatal lint (codex-execution):** pre-dispatch body lint for
+  sandbox-impossible commands, unrunnable gates, placeholders → `needs-plan`.
+  (Measured: 173 PLANNER RULING halt round-trips in zanjir.)
+
+### Changed
+
+- Displacement for the split rule: "Verify before implementing" bullet trimmed
+  to its unique clause (its rationale restated the section intro).
+
+Companion outside the plugin: runner-dispatch-guard hook re-armed the dead-man's
+switch as a touch-dismissed until-loop — TaskStop kills had produced 395 failed
+notifications; failure now fires only on genuine stalls.
+
+## [1.4.25] - 2026-08-19
+
+Net `skills/` word delta: **-200** (43,269 → 43069).
+
+### Changed
+
+- **One wording per rule.** The pre-flight marker procedure (restated in
+  hybrid-execution and codex-execution), the Session Task List mirror and the
+  suite-gate closing (restated in hybrid-execution) now defer to their single
+  definition in subagent-driven-development; hybrid's reviewer-isolation
+  invariant is stated once, in Pipeline safety rules.
+- **Gate-reword rule promoted to `shared/bd-defaults.md`** — previously
+  hybrid-only, now binds all execution skills alongside the ruling-time sweep.
+
+## [1.4.24] - 2026-08-19
+
+Net `skills/` word delta: **−428** (43,697 → 43,269).
+
+### Added
+
+- **Ruling-time tail sweep** (`shared/bd-defaults.md`): a ruling that amends the
+  spec sweeps, same session, the epic body's affected acceptance lines and every
+  open bead's gate commands. (Mechanism measured in zanjir-km5r: ruling 16 landed
+  as a comment while the epic body and seven tail beads kept the old contract;
+  two tasks' gates would have deadlocked or misdirected implementers.)
+- **Budget headers on every SKILL.md** — H1 carries `budget N words`; at-budget
+  files displace to add. (The corpus grew 39,869 → 43,697 monotonically across
+  1.3.11→1.4.23; no release net-shrank, including the one titled "text economy".)
+
+### Changed
+
+- **Filing threshold (subagent-driven-development)** now defers bead promotion to
+  the user-approval rule (`propose`, never file) and drops its embedded
+  measurement narrative.
+- **Doctrine de-narrated** — nine `(Observed:/Measured:)` parentheticals and six
+  `Why:` blocks compressed to their binding clause; evidence archived here:
+  threshold-free filing ran 25–34% of bead intake (~8–10 beads/day) with open
+  remainders outgrowing closures; a privilege escalation rode a "conditional
+  PASS" into a commit during a 48-hour window of softened verdicts; a coherent
+  "one concern" task landed as a 32-file ~19K-LOC bead (Task Size tripwires);
+  a "3 passing tests" gate passed covering 3 of 9 fields; `dontBreakRows`
+  cleared a mechanism-phrased gate with no fixture reaching page 2 (8-bead
+  defect cluster); an invented even-split pagination cleared every floor-phrased
+  gate; a wave of mechanical tasks got `capable` tiers from scheduling language;
+  a stale allTests constraint cost a round trip (2026-07-26); session-triggered
+  pre-flight made multi-round epics pay full scans on no-change rounds.
+
+## [1.4.23] - 2026-08-18
+
+### Changed
+
+- **Filing threshold in subagent-driven-development ("Acting on review
+  findings")** — a verified finding is fixed in the round or triaged by
+  severity, never filed by default: standalone bead only for user-visible
+  wrong behavior, security, data loss, or blocks-current-work; everything
+  else is one comment line on the project's backlog bead. Mid-execution
+  filings land under the executing epic ONLY when they block that epic's own
+  acceptance (dep-linked); the epic's close-set is its plan batch plus its
+  own blockers. Sessions list every bead they created, with severity
+  justification, in the completion report — visibility without mid-run
+  stops. Driver: a DB-ledger audit (solo + zanjir, Aug 10–18) measured
+  threshold-free filings at 25–34% of all bead intake (~8–10/day), with
+  per-epic remainders growing 46–64% past the plan batch and daily intake
+  exceeding closes in both projects; the flood predates the 1.4.22
+  regression window — it is standing doctrine, not model drift. A hard
+  per-session filing budget was considered and rejected: a mid-run stop in
+  an overnight autonomous session is a stall. An absolute epic freeze was
+  considered and rejected: it would close epics green-on-paper over defects
+  in their own deliverable (the even-split failure at epic scale) — hence
+  the blocks-own-acceptance exception. Companion: per-project backlog beads
+  created and recorded in each project's `docs/dispatch-env.md`.
+
+## [1.4.22] - 2026-08-18
+
+Regression-driven correction wave. Driver: a two-project transcript audit
+(solo + zanjir, Aug 12–17 baseline vs post-change) traced three review-escaping
+defects in 48h — an invented even-split pagination spanning three tasks, a
+coordinator-invented 3:1 image constraint, and two implementers resolving one
+unpinned plan gap in opposite directions (one a committed privilege
+escalation) — to the 1.4.7/1.4.14 trials plus amplifiers. Both trials'
+own watched metrics moved adversely; their terms are executed here.
+
+### Changed
+
+- **writing-plans / Task Size**: the 1.4.14 trial resolves — concern-based
+  sizing stays, but bounded above by a **reviewable-diff bound** with numeric
+  tripwires (~5 non-test files in Files, ~500 changed LOC); past either, the
+  task is presumed a phase and splits, and keeping it whole must be argued
+  visibly at plan time. (Observed: a coherent "one concern" landed as a
+  32-file, ~19K-LOC bead; closes/hour fell 7–14x, beyond the trial's 2x
+  design allowance.)
+- **writing-plans / No Placeholders**: the 1.4.7 blanket relaxation resolves
+  into the **fork test** — a step where two competent implementers could both
+  satisfy the gate with observably different behavior is hiding a decision:
+  pin it (code, enumeration, table, or explicit "either acceptable") or
+  extract a decision bead. Upstream decisions (spec/ruling/brainstorm) that a
+  task implements must appear in that task's own body — the executor reads
+  one bead, never the epic.
+- **writing-plans / gates**: every Acceptance Gate carries a **preservation
+  item** — what the change must leave intact, checked on the overflow
+  fixture. Floors alone invite mechanisms that clear them by degrading what
+  the gate doesn't mention. Self-Review checks it.
+- **Model tiers (writing-plans, SDD, hybrid)**: down-routing presumes a
+  pinned contract — a task leaving a mechanism or design fork to the executor
+  is `capable` regardless of file count; economize on the contract or on the
+  executor, never both. Hybrid's mandatory down-route override gains the same
+  guard.
+- **SDD / hybrid routing**: the body-blind rule gains its one sanctioned
+  read — the **scope glance** at claim time (`bd show <id> --section files`,
+  ~10 lines) so a mega-task or file overlap is caught at routing, not after
+  a burned session. Steps, gates, context stay unread.
+- **SDD / Termination + reviewer-prompt**: verdicts are binary **PASS |
+  FAIL** — any spec finding or failed gate item is FAIL; "PASS with
+  findings" / "conditional PASS" are FAIL misspelled. (Observed: hard FAILs
+  collapsed to zero under conditional-pass phrasings while a privilege
+  escalation rode one into a commit.)
+- **SDD / Fix Routing**: a controller-applied fix carries the implementer's
+  full obligations, sibling-site sweep included; a fix whose sweep spans
+  surfaces the finding didn't enumerate is not "fully specified" — dispatch
+  it. (Observed: an inline sweep skipped `server/test`, caught only by the
+  whole-diff review.)
+- **implementer charter + reviewer-prompt**: an unstated mechanism,
+  constraint, or parameter the implementer chose **is a deviation** — the
+  task's silence is not a license; observable-fork situations report
+  NEEDS_CONTEXT or log `[reviewer]` naming the road not taken. The reviewer
+  gains the mirror check: every observable behavior the diff exhibits that
+  the body doesn't mandate is a finding unless a logged deviation covers it.
+- **Gate rewording lands on the bead** (charter + hybrid inline procedure):
+  a gate item reworded at execution time — gate-lint or otherwise — updates
+  the bead in the same round; the gate verified at close is the recorded one.
+  (Observed: a gate-lint deny led to a working-copy-only reword, silently
+  diverging the recorded gate from the executed one.)
+
+### Fixed
+
+- hybrid-execution inline procedure: `bd comments add` typo → `bd comment add`.
+
+## [1.4.21] - 2026-08-17
+
+### Changed
+
+- **Pre-flight is state-triggered, not session-triggered** (SDD, hybrid,
+  codex): a completed pre-flight writes a durable marker on the root bead
+  (`pre-flight: <short-sha> / open: <ids>` comment). Every execution entry
+  resolves the marker instead of unconditionally re-running: current
+  (no commits since the SHA, no open child created/rewritten since) →
+  skip in one line; stale → re-run scoped to open beads whose Files
+  intersect the commits since the marker plus beads created/rewritten
+  since; absent → full review. Driver: 1.4.19's per-session rule made
+  multi-round epics pay a full open-plan scan every round with nothing
+  landed in between — the session boundary was a proxy for the real
+  trigger, landed work, which the epic-92 resume-time catch actually
+  came from.
+
+## [1.4.19] - 2026-08-16
+
+### Changed
+
+- **Pre-Flight Plan Review fires at every execution entry** (SDD, hybrid,
+  codex): a session's first claim requires this session's pre-flight
+  report — same-session writing-plans handoffs (Self-Review is
+  author-blind, does not substitute) and mid-loop continuations included;
+  in hybrid it is now Step 0 of The Loop, not preamble prose. Scope = open
+  beads only, so cost shrinks as the plan progresses. New check class 5:
+  stale premises — task bodies the current tree already contradicts
+  (landed work invalidates the unexecuted remainder). Driver: transcript
+  sweep of 24 execution sessions showed pre-flight dispatched in 8 — only
+  fresh-session loop starts; a same-session handoff ran 13 implementers
+  and a continuation ran 28 with no pre-flight, and epic-92's resume-time
+  run caught three plan defects on the remainder.
+
+### Added
+
+- **`needs-plan` label for findings deferred as beads**: filed at creation
+  (SDD "Acting on review findings"); a ready bead carrying it is not
+  dispatchable at any entry point — it routes to writing-plans (or a
+  decision bead) first. Driver: epic-92's frontier surfaced four
+  review-filed defect beads (gates, no steps, unresolved decisions) as
+  dispatchable tasks.
+
+## [1.4.18] - 2026-08-16
+
+### Added
+
+- **Fix Routing in subagent-driven-development** (referenced from
+  hybrid-execution's FAIL rule): a verified finding whose fix is fully
+  specified by the finding itself is applied by the controller inline on the
+  current diff; a round back to the implementer must be justified by
+  implementer-held context (design call, non-obvious path), and a dispatched
+  round carries ALL outstanding findings — never one round per finding.
+  Driver: an Opus run spent five dispatch rounds on one task, several of
+  them inline-sized edits (dead CSS, comment wording, a test the reviewer
+  had already written and run) — "the same implementer fixes it" read as
+  "every fix is a round".
+
+## [1.4.17] - 2026-08-16
+
+### Added
+
+- **Text Economy pass in writing-skills** (adapted from mattpocock/skills
+  `writing-for-agents`, MIT): leading words (collapse restatements into one
+  pretrained concept-token), no-op hunting (a sentence that doesn't change
+  behavior vs the model default is deleted whole), negation audit (state the
+  positive target; hard guardrails exempt), environment-as-source-of-truth
+  (docs cache only what no config confesses). Added to the Quality Checks
+  checklist. Pilot compression on hybrid-execution: 2817 → 2663 words
+  (−5.5%; conservative — the file is mostly guardrails the doctrine exempts).
+- **Vertical Slices in writing-plans** (adapted from mattpocock/skills
+  `to-tickets`, MIT): default task shape is a tracer bullet — a complete
+  thin path through every layer, demoable alone — replacing the horizontal
+  layer-slice examples (Attention Map example updated to match); wide
+  refactors sequence as expand–contract (expand → migrate in blast-radius
+  batches → contract).
+- **Decision Beads in writing-plans + brainstorming**: a plan is never
+  written over an unresolved design fork — the fork becomes a
+  `Decide: <fork>` child bead blocking the tasks that depend on its outcome;
+  brainstorming records dialogue-unsettleable forks in the spec as
+  explicitly open decisions.
+- **`docs/CONTEXT.md` domain glossary convention**: brainstorming maintains
+  it (one line per term of art), writing-plans writes task bodies in its
+  vocabulary, the implementer dispatch prompt reads it alongside
+  `dispatch-env.md`.
+- **wayfinder skill** (vendored from mattpocock/skills, MIT, bd-native):
+  multi-session foggy efforts chart as a `wayfinder:map` epic bead with
+  decision-ticket children — native `bd dep add` blocking, frontier via
+  `bd ready --parent`, claim via assignee, fog-of-war / out-of-scope
+  sections on the map body, graduate-before-close ordering to survive bd's
+  parent auto-close. Ticket types: research (AFK), prototype, discussion,
+  task. Complements decision beads (single fork) for fog that spans
+  sessions.
+
+## [1.4.16] - 2026-08-16
+
+### Changed
+
+- **The implementer charter ships inside the plugin as the implementer
+  agent's system prompt** (`agents/implementer.md`). No file to fetch, no
+  path to resolve, no per-project copies — the harness delivers it at
+  dispatch. `implementer-charter.md` deleted; dispatch prompts and SDK step 1
+  simplified (env file only). Supersedes 1.4.9's docs-file approach and
+  1.4.15's path-reference approach.
+
+## [1.4.15] - 2026-08-16
+
+### Changed
+
+- **Implementer charter is referenced globally, not copied per project**:
+  dispatch prompts point at this skill's own `implementer-charter.md` by
+  absolute path (resolved from the skill directory at dispatch time — the
+  `scripts/review-package` mechanism). The per-project `docs/` copy step is
+  retired: one shipped copy, zero skew, no reseeding on revisions.
+  `docs/dispatch-env.md` stays per-project (project facts).
+
+## [1.4.14] - 2026-08-16
+
+### Changed (trial)
+
+- **writing-plans**: the 10-Minute Rule is replaced by **Task Size** — one
+  coherent concern bounded by the Context Ceiling, not a clock. Rationale:
+  a firing-rate audit (254 subagents, 18 sessions) showed nearly every
+  per-task ritual fires and earns its keep (per-task review carries FAIL
+  marks in ~17% of reports; Hybrid Parallel has 12 real invocations;
+  pre-flight finds issues in most runs) — so the overengineering lever is
+  not removing rituals but running them fewer times. Doubling task size
+  halves ritual count. TRIAL: watch review FAIL rate and
+  overhead-per-landed-diff; revert if FAILs climb.
+
+## [1.4.13] - 2026-08-16
+
+### Changed
+
+- **Comment audience tags**: deviations and cross-session notes are addressed
+  via a leading `[reviewer]` / `[next-phase]` / `[orchestrator]` / `[all]`
+  token, filtered with `bd comment list <id> --tag <t>` (beads commit
+  4a9521a; `--last N` added alongside). Charter logs deviations tagged;
+  reviewer-prompt reads `--tag reviewer` (with legacy full-list fallback and
+  "unlogged deviation is a finding"); writing-plans' phase-N+1 planning
+  session starts from `--tag next-phase` — the durable half of the
+  phase-gate session handoff. Measured driver: epic threads past 21K chars
+  made pull-all-and-extract a real cost.
+
+## [1.4.12] - 2026-08-16
+
+### Changed
+
+- **Suite gate moves out of the orchestrator's context**: new lean read-only
+  `agents/suite-gate.md` (Bash/Read/Grep/Glob — a gate that can edit is a gate
+  that can "fix" its way to green) runs the full suite once per plan and
+  reports commands + exit codes + output tails. SDD, hybrid-execution,
+  using-git-worktrees, implementer-prompt updated; the gate remains the
+  coordinator's decision, accepted only on deterministic evidence.
+  Warm-environment projects (emulator/device) keep the peer gate-runner path.
+  Measured: suite output resident in a long orchestrator ~100-300K weighted
+  per round vs ~15-20K in a disposable agent.
+
+## [1.4.11] - 2026-08-16
+
+### Changed
+
+- **task-reviewer agent + reviewer-prompt + SDD Termination**: falsification
+  experiments are first-class review evidence — mutate the disposable review
+  worktree to prove a guard fires (break the covered thing, show the check
+  catching it, revert), reported as what-broke/what-caught/revert. The
+  read-only guarantee moves from the toolset (reviewer regains Edit/Write) to
+  the structure: edits confined to the disposable worktree, live tree and
+  reviewed commits never touched. Ruled after a live review whose strongest
+  findings all required such experiments.
+- **reviewer-prompt**: the leftover "[FULL TEXT of task requirements]" paste
+  slot is gone — the reviewer fetches the bead body itself (`bd get <id>
+  body`), same 1.4.6 doctrine as implementers.
+
+## [1.4.10] - 2026-08-16
+
+### Added
+
+- **agents/implementer.md, agents/task-reviewer.md**: lean agent definitions
+  for the two per-task dispatch roles. Restricted `tools:` frontmatter
+  (implementer: Bash/Read/Edit/Write/Grep/Glob; reviewer read-only without
+  Edit/Write) drops unused tool schemas and the browser/MCP surface from each
+  subagent's context prefix. Measured baseline: 26.4K median prefix,
+  re-read ~594M tokens across 22.5K fleet turns (23% of fleet cache traffic).
+  Dispatch templates now name these agents; general-purpose stays the route
+  for tasks genuinely needing browser/device/MCP tools.
+
+## [1.4.9] - 2026-08-16
+
+### Changed
+
+- **subagent-driven-development**: the constant behavioral half of the
+  implementer prompt (Before You Begin, Your Job, edit discipline, code
+  organization, escalation, self-review, report format) moves to a per-project
+  `docs/implementer-charter.md`, copied from the skill's new
+  `implementer-charter.md` on first dispatch. The prompt template now carries
+  only task-specific content: mission, contract fetch, worktree pin,
+  orchestrator addenda, test scope, and the status enum (kept inline because
+  verdict processing depends on it). Observed in a live 1.4.6 dispatch:
+  ~600-700 tokens of identical charter text re-inlined per dispatch. Also
+  fixes the template's `bd comments add` typo (`bd comment add`).
+
+## [1.4.8] - 2026-08-15
+
+### Added
+
+- **scripts/backfill-exec-labels.sh**: one-time per-project migration for the
+  1.4.6 routing — mirrors each open bead's `**Execution:**` line as an
+  `exec:<mode>` label via one `bd batch` call. Dry-run by default, idempotent
+  (skips labelled beads, leaves annotation-less beads alone).
+
+## [1.4.7] - 2026-08-15
+
+### Changed (trial)
+
+- **writing-plans**: the "code blocks required for code steps" rule (upstream
+  doctrine, ~2026-03, pre-Claude-5) is RELAXED: a step is behavior + gate
+  link; code blocks only where the exact text IS the spec (tricky algorithm,
+  exact regex, signature/wire format a sibling consumes). Test steps name
+  every asserted behavior; test code optional. Rationale: the falsifiable
+  Acceptance Gate (1.4.1) is the guard against under-doing; pre-written code
+  doubled authoring cost and drove the 2.1K-token average body. TRIAL: watch
+  the review FAIL rate on the next epics; revert if it climbs.
+
+## [1.4.6] - 2026-08-15
+
+Workflow redesign: the orchestrator never touches a task body. Measured
+(solo project): bodies were delivered up to 4x per task — orchestrator
+`--full` read, pasted into the dispatch prompt, executor `--full` read,
+executor Write of the progress copy — two of those resident in the
+long-lived orchestrator (~4K/task, ~800K per 200-task project).
+
+### Changed (breaking doctrine reversal)
+
+- **subagent-driven-development**: implementer-prompt.md no longer pastes
+  Context Anchor / Gate / Drift / full task text — the prompt names the bead
+  id and the implementer fetches its own contract (`bd show` +
+  `bd get <id> body > .bd/.scratch/progress.md` + Read). The "hand them the
+  full task text" invariant is REVERSED: never paste bodies, never open them
+  in the controller session. Pre-Flight Plan Review now runs as a READ-ONLY
+  subagent (the whole plan enters its context, not the controller's).
+- **hybrid-execution**: the Loop routes from `bd ready --json` + the `exec:`
+  label — the controller never opens a body (legacy fallback: grep the one
+  `**Execution:**` line). Inline Task Procedure delivers the contract via
+  the progress-copy redirect — body in context once, as the working file.
+- **writing-plans**: the Execution annotation is mirrored as a bead label at
+  create time (`-l "exec:<mode>"`) so routing needs no body read.
+
+Companion (pending): `bd workfile` command + labels in `ready --json` in the
+beads repo — until then the get-redirect pattern and `bd label list` serve.
+
+## [1.4.5] - 2026-08-15
+
+Compression sweep (progressive disclosure): rarely-needed sections move to
+`references/` files read on demand; every rule kept verbatim, nothing dropped.
+Loads shrink ~1.2K tokens per skill invocation.
+
+### Changed
+
+- **hybrid-execution** (20.3K -> 18.0K chars): Hybrid Parallel procedure ->
+  `references/hybrid-parallel.md` (activation rule stays in SKILL.md); Model
+  Tiers reasoning -> `references/model-tiers.md` (map + floor rule stay).
+- **writing-plans** (22.6K -> 20.1K chars): the three conditional review
+  lenses (Deploy Sequence, Cross-Layer Consistency, Semantic Regression
+  Sweep) -> `references/plan-review-lenses.md`, applied only when a task
+  touches schema/rollout/contracts/type shapes.
+
+## [1.4.4] - 2026-08-15
+
+Two residency reducers from the 2026-08-15 token audit of the solo project
+(18 orchestrator + 248 executor transcripts): dispatch-prompt boilerplate and
+oversized tasks were the two schema-level contributors to fleet spend.
+
+### Changed
+
+- **subagent-driven-development**: static environment boilerplate moves to the
+  project's `docs/dispatch-env.md`, referenced by path from dispatch prompts
+  instead of inlined. (Measured: the same ~250-token block inlined in 248
+  dispatch prompts, each resident in the orchestrator to session end.)
+- **writing-plans**: new Context Ceiling rule under Bite-Sized Task
+  Granularity — a task whose executor would plausibly accumulate >~150K tokens
+  of context is two tasks. (Measured: the top decile of executors reached
+  200–418K resident and dominated fleet spend.)
+
+## [1.4.1] - 2026-07-26
+
+Two guardrails against unverified orchestrator assertions reaching executors,
+from the 2026-07-26 volunteered-rigor incident analysis (Opus 5 sessions
+`40391637` / `25d32456`): every fabrication that reached an executor entered
+through orchestrator-added content — dispatch-prompt fill slots and gate
+premises — never through an audited bead body.
+
+### Changed
+
+- **codex-execution**: dispatch-prompt fill slots carry facts, not judgment —
+  any constraint the orchestrator adds beyond the bead must cite a
+  same-session tool run, and environment/toolchain facts expire when a task
+  changes the toolchain. New Common-mistakes row. (Observed: a stale
+  pre-toolchain-bump "allTests executes none" order; codex correctly refused,
+  costing a full round trip.)
+- **writing-plans**: acceptance-gate numbers and factual premises are claims —
+  derive each from a same-session measurement and check it against evidence
+  already gathered. (Observed: a ">= 3 distinct offsets" gate that
+  mis-encoded two DST transitions, plus a zone the same session had already
+  measured as a one-off.)
+
+## [1.4.0] - 2026-07-22
+
+Usage-analysis-driven overhaul of the skill roster (epic `superpowers-yz0`),
+based on a three-project transcript analysis (206 sessions): every serious
+friction event was a missed or bypassed trigger, never skill overhead.
+
+### Removed (breaking)
+
+- **Four skills retired**: `dispatching-parallel-agents` (0 invocations in 206
+  sessions), `receiving-code-review` (0), `finishing-a-development-branch`
+  (superseded), `executing-plans` (displaced by hybrid/codex execution).
+  Surviving content folded: the inline per-task procedure now lives in
+  hybrid-execution's own **Inline Task Procedure** section; branch finishing
+  lives in using-git-worktrees' **Finishing: Merge Back and Clean Up**;
+  review-reception discipline lives in subagent-driven-development's
+  **Acting on review findings**.
+- **writing-plans execution handoff is now 3 options** (Subagent-Driven,
+  Hybrid, Codex) — the Inline option retired with executing-plans; all-inline
+  plans are served by Hybrid routing.
+
+### Added
+
+- **Pipelined reviews by default in hybrid-execution**: task N's reviewer runs
+  in the background against a frozen review package while N+1 implements;
+  opt-in **Hybrid Parallel** mode (literal "hybrid parallel" from the user)
+  for 2–3 disjoint-scope implementers in separate worktrees.
+- **review-package script** (ported from upstream v6, adapted to
+  `.bd/.scratch/`): reviewers read a frozen commit-list + stat + U15 diff
+  file — never a pasted diff, never the moving working tree.
+- **Two advisory plugin hooks** (never blocking): `fail-streak-guard`
+  (PostToolUse — 2+ consecutive failures of one command class → reminder to
+  load systematic-debugging and offer outsource-review) and `completion-gate`
+  (PreToolUse on `bd close`/`git commit` — warns when code changed since the
+  last passing verification run). Mechanical ignition for the two skills the
+  analysis showed never self-invoke mid-firefight.
+- **Pre-Flight Plan Review** (upstream v6 port, bd-adapted): whole-plan
+  contradiction scan before Task 1, findings batched into one question.
+- **Epic gate** at all three execution entry points: an epic bead with no
+  children routes to writing-plans — undecomposed epics never execute.
+- **Multi-Phase Epics rule** in writing-plans: the last task of phase N is
+  "Plan phase N+1", so bd auto-close can't silently swallow a continuation.
+- **Required `model:` field** in implementer/reviewer dispatch templates
+  (upstream v6 port) — an omitted model silently inherits the session's most
+  expensive one.
+- **Reviewer Prompt Bias guardrail** (upstream v6 port): "do not flag" /
+  "at most Minor" in a reviewer prompt is a stop signal — the reviewer
+  decides severity, not the controller.
+- **Evidence-first guard** in brainstorming: suspected-problem brainstorms
+  require a shown problem (repro/error) before design.
+
+### Fixed
+
+- Version manifests re-synced via `bump-version.sh` (1.3.11 release had
+  hand-bumped only 2 of 5 files, leaving cursor/gemini manifests at 1.3.10).
+- Live skill tests run on stock macOS (GNU `timeout` absent) and the sdd
+  test's task-loading assertion matches this fork's bd-based flow.

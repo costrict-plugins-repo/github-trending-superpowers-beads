@@ -1,0 +1,19 @@
+{
+  "name": "superpowers-beads",
+  "description": "Beads-integrated skills library for Claude Code: specs, plans, and task execution tracked in beads issue tracker",
+  "version": "1.4.81",
+  "author": {
+    "name": "Rustam"
+  },
+  "repository": "https://github.com/rsktash/superpowers",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "beads",
+    "issue-tracking",
+    "tdd",
+    "debugging",
+    "collaboration",
+    "workflows"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "rsktash",
+  "description": "Beads-integrated skills library for Claude Code",
+  "owner": {
+    "name": "Rustam"
+  },
+  "plugins": [
+    {
+      "name": "superpowers-beads",
+      "description": "Beads-integrated skills library for Claude Code: specs, plans, and task execution tracked in beads issue tracker",
+      "version": "1.4.81",
+      "source": "./",
+      "author": {
+        "name": "Rustam"
+      }
+    }
+  ]
+}
