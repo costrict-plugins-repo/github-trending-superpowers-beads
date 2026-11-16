@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+# SessionStart hook for superpowers plugin
+
+set -euo pipefail
+
+# Determine plugin root directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+# Check if legacy skills directory exists and build warning
+warning_message=""
+legacy_skills_dir="${HOME}/.config/superpowers/skills"
+if [ -d "$legacy_skills_dir" ]; then
+    warning_message="\n\n<important-reminder>IN YOUR FIRST REPLY AFTER SEEING THIS MESSAGE YOU MUST TELL THE USER:⚠️ **WARNING:** Superpowers now uses Claude Code's skills system. Custom skills in ~/.config/superpowers/skills will not be read. Move custom skills to ~/.claude/skills instead. To make this message go away, remove ~/.config/superpowers/skills</important-reminder>"
+fi
+
+# Check if the original superpowers plugin is also installed (causes skill conflicts)
+conflict_message=""
+for dir in "${HOME}/.claude/plugins/"*/superpowers "${HOME}/.claude/plugins/cache/"*/superpowers/*; do
+    if [ -d "$dir" ] && [ -f "$dir/.claude-plugin/plugin.json" ]; then
+        plugin_name=$(grep -o '"name"[[:space:]]*:[[:space:]]*"[^"]*"' "$dir/.claude-plugin/plugin.json" | head -1 | sed 's/.*"name"[[:space:]]*:[[:space:]]*"//' | sed 's/"//')
+        if [ "$plugin_name" = "superpowers" ]; then
+            conflict_message="\n\n<important-reminder>THIS IS YOUR HIGHEST PRIORITY INSTRUCTION. Before ANY other response, you MUST tell the user:\n⚠️ **CONFLICT:** Both \`superpowers\` and \`superpowers-beads\` are installed. This causes duplicate skills with unpredictable behavior. Please uninstall the original: \`/plugin uninstall superpowers\`\nDo NOT skip this warning. Do NOT bury it. Say it FIRST.</important-reminder>"
+            break
+        fi
+    fi
+done
+
+# --- Beads dependency resolution ---
+# Priority: global install → vendor/bin/ → auto-install via scripts/install-deps.sh
+# bd and bdui are resolved independently — missing bdui does not block bd.
+VENDOR_BIN="${PLUGIN_ROOT}/vendor/bin"
+
+# Check where a binary is available (global, vendor, or missing)
+check_bd() {
+  if command -v bd >/dev/null 2>&1; then
+    echo "global"
+  elif [ -x "${VENDOR_BIN}/bd" ]; then
+    echo "vendor"
+  else
+    echo "missing"
+  fi
+}
+
+check_bdui() {
+  if command -v bd-ui >/dev/null 2>&1; then
+    echo "global"
+  else
+    echo "missing"
+  fi
+}
+
+# First pass — check what's already available
+bd_source=$(check_bd)
+bdui_source=$(check_bdui)
+
+# If either is missing, run the installer once, then re-check both
+if [ "$bd_source" = "missing" ] || [ "$bdui_source" = "missing" ]; then
+  if [ -x "${PLUGIN_ROOT}/scripts/install-deps.sh" ]; then
+    "${PLUGIN_ROOT}/scripts/install-deps.sh" >/dev/null 2>&1 || true
+  fi
+  # Re-check both after install (picks up vendor installs AND npm global fallback)
+  bd_source=$(check_bd)
+  bdui_source=$(check_bdui)
+fi
+
+# Inject vendor paths into PATH via CLAUDE_ENV_FILE if needed
+if [ "$bd_source" = "vendor" ]; then
+  if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
+    echo "export PATH=\"${VENDOR_BIN}:\$PATH\"" >> "$CLAUDE_ENV_FILE"
+  fi
+fi
+
+# Add bd-ui script to the project's package.json
+if [ "$bdui_source" != "missing" ]; then
+  if [ -f "$(pwd)/package.json" ] && command -v npm >/dev/null 2>&1; then
+    (cd "$(pwd)" && npm pkg set scripts.bd-ui="PORT=3333 bd-ui" 2>/dev/null) || true
+  fi
+fi
+
+# Auto-configure bd permissions in the project's .claude/settings.json
+if [ -x "${PLUGIN_ROOT}/scripts/setup-permissions.sh" ]; then
+  "${PLUGIN_ROOT}/scripts/setup-permissions.sh" "$(pwd)" >/dev/null 2>&1 || true
+fi
+
+# Build status messages
+beads_status_message=""
+if [ "$bd_source" != "missing" ]; then
+  bd_bin=$( [ "$bd_source" = "vendor" ] && echo "${VENDOR_BIN}/bd" || echo "$(command -v bd)" )
+  bd_version=$($bd_bin --version 2>&1 || echo "unknown")
+  beads_status_message="\n\n<beads-status>BEADS_AVAILABLE=true\nBEADS_VERSION=${bd_version}\nBEADS_SOURCE=${bd_source}</beads-status>"
+else
+  beads_status_message="\n\n<beads-status>BEADS_AVAILABLE=false\nAuto-install failed. Manual install: \`npm install -g @beads/bd\` or \`brew install beads\`\nAfter install: run \`bd init\` in the project directory.</beads-status>"
+fi
+
+# Add bdui status
+if [ "$bdui_source" != "missing" ]; then
+  beads_status_message="${beads_status_message}\n<beads-ui-status>BDUI_AVAILABLE=true\nBDUI_SOURCE=${bdui_source}</beads-ui-status>"
+else
+  beads_status_message="${beads_status_message}\n<beads-ui-status>BDUI_AVAILABLE=false</beads-ui-status>"
+fi
+
+# Read using-superpowers content
+using_superpowers_content=$(cat "${PLUGIN_ROOT}/skills/using-superpowers/SKILL.md" 2>&1 || echo "Error reading using-superpowers skill")
+
+# Escape string for JSON embedding using bash parameter substitution.
+# Each ${s//old/new} is a single C-level pass - orders of magnitude
+# faster than the character-by-character loop this replaces.
+escape_for_json() {
+    local s="$1"
+    s="${s//\\/\\\\}"
+    s="${s//\"/\\\"}"
+    s="${s//$'\n'/\\n}"
+    s="${s//$'\r'/\\r}"
+    s="${s//$'\t'/\\t}"
+    printf '%s' "$s"
+}
+
+using_superpowers_escaped=$(escape_for_json "$using_superpowers_content")
+warning_escaped=$(escape_for_json "$warning_message")
+conflict_escaped=$(escape_for_json "$conflict_message")
+beads_status_escaped=$(escape_for_json "$beads_status_message")
+session_context="<EXTREMELY_IMPORTANT>\n"
+[ -n "$conflict_message" ] && session_context+="${conflict_escaped}\n"
+[ -n "$warning_message" ] && session_context+="${warning_escaped}\n"
+session_context+="You have superpowers.\n\n${beads_status_escaped}\n\n**Below is the full content of your 'superpowers-beads:using-superpowers' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_superpowers_escaped}\n</EXTREMELY_IMPORTANT>"
+
+# Output context injection as JSON.
+# Cursor hooks expect additional_context (snake_case).
+# Claude Code hooks expect hookSpecificOutput.additionalContext (nested).
+# Copilot CLI (v1.0.11+) and others expect additionalContext (top-level, SDK standard).
+# Claude Code reads BOTH additional_context and hookSpecificOutput without
+# deduplication, so we must emit only the field the current platform consumes.
+#
+# Uses printf instead of heredoc to work around bash 5.3+ heredoc hang.
+# See: https://github.com/obra/superpowers/issues/571
+if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
+  # Cursor sets CURSOR_PLUGIN_ROOT (may also set CLAUDE_PLUGIN_ROOT)
+  printf '{\n  "additional_context": "%s"\n}\n' "$session_context"
+elif [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -z "${COPILOT_CLI:-}" ]; then
+  # Claude Code sets CLAUDE_PLUGIN_ROOT without COPILOT_CLI
+  printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$session_context"
+else
+  # Copilot CLI (sets COPILOT_CLI=1) or unknown platform — SDK standard format
+  printf '{\n  "additionalContext": "%s"\n}\n' "$session_context"
+fi
+
+exit 0

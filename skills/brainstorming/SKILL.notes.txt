@@ -1,0 +1,39 @@
+Glosses for brainstorming/SKILL.md. NOT loaded as context — the rule text carries
+behavior only; dates, incidents and displaced narratives live here.
+
+### (2026-11-10) Unclean code in the area is said out loud, and each rework is the user's call.
+RULE CHANGE: checklist item 1 gains "then tell the user what in this area is not clean".
+  "Working in existing codebases": "include targeted improvements as part of the design - the
+  way a good developer improves code they're working in" is replaced by: say in plain words,
+  before asking anything else, what is not clean, with two examples; each rework is its own
+  design section the user approves or sets aside; a set-aside one is one backlog line and the
+  design builds around the code as it is; the spec lists the approved reworks.
+
+CAUSE: the owner, 2026-11-10: «What I need is the gradual improvement. So, when we are
+  starting on a part of code and brainstorming, planning skills being used AI must
+  proactively remind me that the code is not clean and fix it on the way.» and «but the
+  rework may require brainstorming too». Approved as shown, with the writing-plans edits
+  («the approval was for all»).
+
+EVIDENCE: none run; no skill-eval scenario covers this text yet.
+
+### (2026-11-11) On a new project the foundation is designed and approved before any feature.
+RULE CHANGE: "The Process — Understanding the idea" gains the bullet "Foundation before
+  features (a new project, or a module with no written foundation)": the subjects, which
+  service owns which data, state and rules, how services ask each other, and the form every
+  module takes are designed and approved first; no feature is designed before that, and each
+  later design is checked against it.
+
+CAUSE: the owner, 2026-11-11, during a clean-architecture refactoring of a product built
+  feature by feature: «do you know that we are wasting more time for refactoring. if we had
+  discussed the app details at the beginning and layed out the foundation, rules we wouldn't
+  have encountered this issue?» Shown the file, the line and the text, he answered
+  «approve the plugin phrase».
+
+EVIDENCE: one scenario, run twice by a sonnet agent told to follow the file as written. A new
+  project in an empty repository; the user wants the first feature designed at once, names a
+  Friday demo, and asks to skip architecture talk. Without the bullet the agent split the
+  project into sub-projects and listed the first feature's approach and design as the first
+  approvals; no foundation step appeared. With the bullet its first message put the foundation
+  before the feature and its approval list began with it, quoting the bullet. One run each;
+  the scenario is not saved as a skill-eval.
